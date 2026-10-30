@@ -76,6 +76,8 @@ El encoder rotatorio cumple dos funciones en un solo componente: funciona como *
 | Cinco lucecitas LED | 5 LED + 5 resistencias | LED 5 mm*, resistencias 220–330 Ω* | Indican cuál de los cinco sonidos está seleccionado. |
 | Unidad de control | Microcontrolador | Raspberry Pi Pico 2 W (chip RP2350, 150 MHz, 520 KB RAM, 4 MB flash) | Lee el encoder, el potenciómetro y el botón Loop, enciende los LEDs y envía el audio al amplificador por I2S. |
 
+### Diagrama de experiencia de usuario
+
 ![diagrama](./imagenes/usuario.png)
 
 <br>
@@ -187,11 +189,21 @@ Cuando el anterior **o** el actual cambien de estado, el `modoSwitch` lo hará
 
 #### Boton.cpp
 
+Se adjunta diversos diagramas de flujo que explican el funcionamiento de cada método de la clase
+
+##### leer()
+
 ![Diagrama Botón](./imagenes/boton-leer-v02.png)
+
+##### bool doblePresionado()
 
 ![Diagrama Botón](./imagenes/boton-doble-click.png)
 
+##### presionarSwitch()
+
 ![Diagrama Botón](./imagenes/boton-switch.png)
+
+##### modoBorrar
 
 ![Diagrama Botón](./imagenes/boton-modo-borrar.png)
 
@@ -349,6 +361,8 @@ void Ampli::controlVolumen(){
 <br>
 
 ## comentarios claude
+
+Desde acá en adelante se describen distintas conversación en las que se le solicita a Claude que observe y analice nuestro código.
 
 ### revisión #1
 
@@ -618,3 +632,285 @@ Relacionado: hoy, si el loop está activo y se gira el encoder, **el LED se muev
   - La conexión de pines no tiene choques: LEDs 2–6, botones 12–13, encoder 14–15, ampli 18–19–20, potenciómetro 26.
 
 **Orden sugerido para corregir:** 2 → 1 → 3 (hasta que compile) → 4 (para que suene bien) → 5 → 6 → 7.
+
+<br>
+
+### revisión #2
+
+**Prompt:**
+
+> Revisa la versión del código v02 de grupo1 en proyecto 02. En este debes revisar y considerar que no hayan errores de sintaxis, funciones / metodos que se bloqueen, fallos de lógica, entre otros
+>
+> Considera que aún no necesitamos el CMakeLists.txt
+>
+> Es importante que no edites nada, pero revisa y se minusioso al hacerlo. Considera que estoy aprendiendo a programar, es por ello que todos los comentarios que realices sean desde la base explicando que falla, porque falla y como se debería solucionar.
+> Para esto en el readme.md hay una sección llamada ## comentarios claude. Escribe el prompt y tus comentarios en la revisión #2
+
+**Archivos revisados:** `codigos/v02/` → `main.cpp`, `Ampli.h/.cpp`, `Audio.h/.cpp`, `BotonGrupo1.h/.cpp`, `Lucecita.h/.cpp`, `PerillaGrupo7.h/.cpp`, `sonido0.h` a `sonido4.h`.
+También miré `script/convertir.py`, solo para entender cómo se generaron los sonidos.
+No se modificó ningún archivo de código. Como pidieron, no se revisa el `CMakeLists.txt`.
+
+**Ojo:** esta revisión se hizo **leyendo** el código, no compilándolo (sin `CMakeLists.txt` no se puede compilar). Revisé con cuidado la sintaxis, pero el compilador siempre tiene la última palabra.
+
+#### ¿Qué pasó con lo de la revisión #1?
+
+| # (rev. 1) | Problema | Estado en v02 | Comentario |
+| --- | --- | --- | --- |
+| 1 | Nombres de los arreglos de sonido | ✅ Resuelto | `Audio.cpp` usa `sonido0` ... `sonido4`, igual que dentro de cada `sonidoN.h`. |
+| 2 | Faltaba `BotonGrupo1` | ✅ Resuelto | Está en la carpeta y tiene `recienPresionado`. |
+| 3 | `CMakeLists.txt` y librería de audio | ⏸️ Pendiente a propósito | Cuando lo hagan, recuerden que `pico/audio_i2s.h` viene de **pico-extras**. |
+| 4 | Formato de los sonidos | ✅ Resuelto | Ver detalle abajo. |
+| 5 | El sonido cargado puede no ser el del LED | ❌ Sigue igual | Es el punto 1 de esta revisión. |
+| 6 | Parpadeo del LED a destiempo | ❌ Sigue igual | Es el punto 4 de esta revisión. |
+| 7 | Sonido de encendido y de "loop activado" | ❌ Sigue faltando | Es el punto 7 de esta revisión. |
+| 8 | Detalles menores | 🟡 Parcial | Ver punto 8. |
+
+**Sobre el formato de los sonidos (punto 4), lo comprobé así:** conté los números que hay dentro de cada arreglo y coinciden **exactamente** con lo que dice el comentario de cada archivo (11531, 21035, 14696, 9397 y 5248 muestras). Además, los arreglos ya no empiezan con `0x52, 0x49, 0x46, 0x46` ("RIFF"), o sea, **no traen la cabecera del .wav ni los metadatos**: son solo muestras de sonido. Y `Ampli::actualizar()` ahora lee de a 16 bits y los convierte con `(int16_t)`, que es justo el formato que guarda el script. ¡Muy bien resuelto! 👏
+
+**También quedaron bien corregidos** (lo explican los comentarios de `main.cpp`, líneas 43 a 53):
+
+- `PerillaGrupo7 perillaVolumen(26, 100);` ahora entrega los dos datos que pide el constructor.
+- `PerillaGrupo7 perillaSelector(14, 15, CANTIDAD_SONIDOS);` ya no tiene los paréntesis vacíos. Con `perillaSelector()` C++ entendía que era una **función** y no un objeto (a esto se le llama *most vexing parse*, "el análisis más molesto"). Excelente que lo hayan dejado explicado.
+
+#### ¿Hay errores de sintaxis o funciones que se bloqueen?
+
+**Sintaxis:** no encontré errores. Revisé en particular:
+
+- Que cada `#include` apunte a un archivo que existe en `v02/` (salvo `pico/audio_i2s.h`, que llega con pico-extras).
+- Que los dos constructores de `PerillaGrupo7` no se confundan: con 2 datos se usa el del potenciómetro y con 3 el del encoder. ✅
+- Que `const int CANTIDAD_SONIDOS = 5;` en `Audio.h` no cause "definición múltiple": en C++ una constante `const` en un `.h` es privada de cada archivo, así que no choca. ✅
+- Que los `sonidoN.h` solo se incluyan en `Audio.cpp`. Si se incluyeran también en `main.cpp`, los 124 KB de sonido quedarían copiados dos veces en la memoria. ✅
+
+**Bloqueos:** ninguna función bloquea el programa. ✅
+
+- `take_audio_buffer(colaBuffers, false)`: el `false` significa "si no hay cajita libre, no esperes". Sale de inmediato.
+- `BotonGrupo1::leer()` y `Lucecita::parpadeo()` usan el reloj (`to_ms_since_boot`) en vez de `sleep_ms`.
+- Los únicos `for` del programa tienen un final fijo (256 muestras en `actualizar()`, 4 lecturas en el potenciómetro), así que siempre terminan.
+- `adc_read()` sí "espera", pero solo unos 2 microsegundos (0,000002 s): no se nota.
+
+#### Resumen de esta revisión
+
+| # | Problema | Gravedad | ¿Qué provoca? |
+| --- | --- | --- | --- |
+| 1 | El sonido cargado puede no ser el que muestra el LED (viene de v01) | 🟠 Error de lógica | Loop reproduce un sonido distinto al elegido |
+| 2 | El botón del encoder KY-040 funciona "al revés" de lo que espera `BotonGrupo1` | 🟠 Hardware / lógica | El botón selector no responde, o se activa al soltarlo |
+| 3 | Defecto del chip RP2350 con resistencias pull-down (errata E9) | 🟠 Hardware | Un botón puede quedar "pegado" como presionado |
+| 4 | Parpadeo del LED parte a destiempo (viene de v01) | 🟡 Detalle | El LED se apaga de inmediato al activar loop |
+| 5 | Chasquido ("tic") al terminar o cortar un sonido | 🟡 Suena raro | Ruido corto al final de `sonido3` y al cambiar de sonido |
+| 6 | El sentido de giro del encoder puede quedar invertido | 🟡 Revisar al probar | Horario retrocede en vez de avanzar |
+| 7 | Falta el sonido de encendido y el de "loop activado" (viene de v01) | 🟡 Falta funcionalidad | No coincide con el seudo-código |
+| 8 | Detalles menores | ⚪ Menor | Ordenar / prevenir problemas futuros |
+
+---
+
+#### 1. 🟠 El sonido cargado puede no ser el que muestra el LED (sigue igual que en v01)
+
+**Dónde:** [main.cpp](./codigos/v02/main.cpp) líneas 102 a 117 y 132 a 136.
+
+**Qué falla:** el código de esta parte es idéntico al de v01. El sonido nuevo solo se carga en el ampli **en la misma vuelta en que se gira el encoder**, y solo si no hay nada sonando:
+
+```cpp
+if (perillaSelector.cambio) {
+  ...
+  if (!amplificador.sonando) {
+    audio.enviarSonido(amplificador, sonidoSeleccionado);
+  }
+}
+```
+
+**Paso a paso del problema:**
+
+1. Presiono el encoder → suena el **sonido 0**.
+2. Mientras suena, giro el encoder hasta el **sonido 2**. El LED 2 se prende, pero como `sonando` es `true`, el sonido 2 **no se carga**.
+3. El sonido 0 termina solo y `sonando` pasa a `false`. Pero nadie vuelve a revisar, porque el `if (perillaSelector.cambio)` solo es verdadero en la vuelta exacta en que se gira.
+4. Presiono **Loop** → `alternarLoop()` llama a `reproducir()`, que reproduce **lo que está cargado**: suena en bucle el **sonido 0**, mientras parpadea el LED 2.
+
+Con v02 aparece otro camino al mismo error: con el loop activo giro al sonido 2 (sigue sonando el 0 en bucle), desactivo el loop, el 0 termina su vuelta, y si vuelvo a activar el loop... suena otra vez el 0.
+
+**Por qué falla:** la acción "cargar el sonido nuevo" depende de dos condiciones (que se haya girado el encoder **y** que no esté sonando nada), pero esas dos cosas pueden pasar en momentos distintos. El código solo revisa ambas en el instante del giro.
+
+**Cómo solucionarlo:** revisar la condición **en cada vuelta del while**, comparando lo que está cargado (`amplificador.sonidoActual`, que en v02 ya se actualiza en `Audio::enviarSonido()`) con lo que se ve en los LED (`sonidoSeleccionado`). Por ejemplo, justo antes del bloque `// -- loop --`:
+
+```cpp
+// si no hay nada sonando y el sonido cargado no es el que muestra el led,
+// se carga el sonido elegido para que Loop repita el correcto
+if (!amplificador.sonando && amplificador.sonidoActual != sonidoSeleccionado) {
+  audio.enviarSonido(amplificador, sonidoSeleccionado);
+}
+```
+
+Con esto, el `if (!amplificador.sonando)` de la línea 114 ya no hace falta (se puede borrar), porque este nuevo bloque cubre ese caso y también el del sonido que termina después.
+
+---
+
+#### 2. 🟠 El botón del encoder KY-040 funciona "al revés" de lo que espera `BotonGrupo1`
+
+**Dónde:** [main.cpp](./codigos/v02/main.cpp) línea 28 (`BotonGrupo1 botonSelector(12);`) y [BotonGrupo1.h](./codigos/v02/BotonGrupo1.h) líneas 23 a 31.
+
+**Qué espera la clase:** `BotonGrupo1` está hecha para una conexión **pull-down**: una pata del botón va a 3.3V, y el pin tiene una resistencia a GND. Así:
+
+- suelto → el pin lee `0`
+- presionado → el pin lee `1`
+
+**Cómo funciona el KY-040:** si usan el **módulo** KY-040 (la placa pequeña con 5 pines: `GND`, `+`, `SW`, `DT`, `CLK`), el botón interno conecta el pin `SW` **a GND** cuando se presiona. Es decir, funciona al revés (a esto se le llama "activo en bajo"):
+
+- presionado → `SW` queda en `0`
+- suelto → `SW` queda "flotando" (o en `1` si el módulo trae resistencia pull-up)
+
+**Por qué falla:**
+
+- **Si conectan una pull-down a `SW`:** el pin está en `0` cuando está suelto y en `0` cuando está presionado. Nunca cambia → `recienPresionado` nunca es `true` → **no se puede reproducir ningún sonido**.
+- **Si el módulo trae pull-up:** la lectura queda invertida. Apenas se enciende la Raspi, `leer()` ve un `1` (porque está suelto), lo toma como "recién presionado" y **reproduce un sonido solo**. Después, el sonido se activará **al soltar** el botón, no al presionarlo.
+
+**Cómo solucionarlo (elijan una):**
+
+- **Opción A (sin tocar código):** usar un encoder "suelto", sin módulo. Esos tienen las dos patas del botón separadas, y se pueden conectar igual que el botón Loop: una pata a 3.3V y la otra al GPIO 12 con resistencia pull-down a GND.
+- **Opción B (agregar una opción a la clase):** como `BotonGrupo1` también la usa el grupo 07, se puede agregar un dato **opcional** al constructor, que por defecto deje todo como está. Por ejemplo:
+
+```cpp
+// BotonGrupo1.h
+// invertido = true para botones que conectan a GND al presionar (como el KY-040)
+// por defecto es false, asi la clase sigue funcionando igual para el grupo 07
+BotonGrupo1(int nuevoPin, bool nuevoInvertido = false);
+bool invertido = false;
+
+// BotonGrupo1.cpp, en el constructor
+invertido = nuevoInvertido;
+gpio_init(pin);
+gpio_set_dir(pin, GPIO_IN);
+if (invertido) {
+  // resistencia interna hacia 3.3V: suelto lee 1, presionado lee 0
+  gpio_pull_up(pin);
+}
+
+// BotonGrupo1.cpp, en leer()
+bool nuevoPresionado = gpio_get(pin);
+if (invertido) {
+  // damos vuelta la lectura para que presionado siga siendo true
+  nuevoPresionado = !nuevoPresionado;
+}
+```
+
+y en `main.cpp`: `BotonGrupo1 botonSelector(12, true);`. El resto de la clase (`recienPresionado`, `doblePresionado()`, etc.) sigue funcionando igual, porque todo depende de `nuevoPresionado`.
+
+**Cómo saber cuál es su caso:** miren el encoder que compraron. Si es una plaquita con los 5 pines nombrados, es el módulo y les afecta este punto.
+
+---
+
+#### 3. 🟠 Defecto del chip RP2350 con resistencias pull-down (errata E9)
+
+**Dónde:** el circuito de los dos botones (GPIO 12 y 13), y la tabla de **Controles e interacciones** del README, que dice "resistencia pull down" sin indicar el valor.
+
+**Qué pasa:** el chip de la Pico 2 W (RP2350) tiene un defecto de fábrica conocido, que Raspberry Pi publicó en su documento de erratas (errores del chip) como **RP2350-E9**. Cuando un pin configurado como entrada recibe 3.3V y luego se suelta el botón, el pin puede quedarse "atrapado" en unos 2 V, porque por dentro se escapa un poquito de corriente. Una resistencia pull-down "débil" (de valor alto) no tiene fuerza suficiente para bajarlo a 0.
+
+**Por qué importa:** si pasa, el pin sigue leyendo `1` aunque nadie lo esté presionando: el botón parece **pegado**. `presionado` queda en `true` para siempre y `recienPresionado` no vuelve a activarse. Por eso la Pico 2 no tiene buenos resultados con la pull-down interna (`gpio_pull_down`), y por eso está bien que la clase pida una resistencia externa.
+
+**Cómo solucionarlo:**
+
+- Usar una resistencia pull-down externa de **8,2 kΩ o menos** (por ejemplo 4,7 kΩ). Una de 10 kΩ, que es muy común en tutoriales, puede no bastar.
+- O usar la conexión "al revés" (pull-up, botón a GND) del punto 2, opción B: esa conexión no tiene este problema.
+- Escribir el valor de la resistencia en la tabla de **Controles e interacciones**, para que nadie use una de 10 kΩ por costumbre.
+
+Les recomiendo buscar "RP2350 errata E9" en el datasheet del RP2350 (sección *Errata*) para leer el detalle oficial.
+
+---
+
+#### 4. 🟡 El parpadeo del LED parte a destiempo (sigue igual que en v01)
+
+**Dónde:** [Lucecita.cpp](./codigos/v02/Lucecita.cpp) líneas 47 a 66 (es idéntico al de v01).
+
+**Qué pasa:** `ultimaLecturaParpadeo` parte en `0` y solo se actualiza dentro de `parpadeo()`. La primera vez que se activa el loop (por ejemplo, 10 segundos después de encender), `tiempoActual - 0` ya es mucho más que 250 ms, entonces el LED **se apaga de inmediato** en vez de quedarse prendido 250 ms. Lo mismo pasa con el LED nuevo cuando se gira el encoder durante el loop.
+
+**Cómo solucionarlo:** reiniciar el "cronómetro" del parpadeo cada vez que se prende el LED:
+
+```cpp
+void Lucecita::prender() {
+    prendida = true;
+    gpio_put(patita, true);
+    // el parpadeo empieza a contar desde que se prendio
+    ultimaLecturaParpadeo = to_ms_since_boot(get_absolute_time());
+}
+```
+
+Como `parpadeo()` también llama a `prender()`, esto no cambia el ritmo del parpadeo, solo arregla el primer ciclo.
+
+---
+
+#### 5. 🟡 Chasquido ("tic") al terminar o cortar un sonido
+
+**Dónde:** [sonido3.h](./codigos/v02/sonido3.h) (últimas muestras) y [Ampli.cpp](./codigos/v02/Ampli.cpp) líneas 177 a 190.
+
+**Qué pasa:** el parlante tiene una membrana que se mueve según el número de cada muestra: `0` es "en reposo" y valores grandes la empujan hacia afuera o hacia adentro. Si de una muestra a la siguiente el número salta de golpe, la membrana da un "golpe" y se escucha un **tic**.
+
+- `sonido3` **no termina en silencio**: sus últimas muestras valen cerca de **+450** (por ejemplo `0x01c9`, `0x01b7`). Cuando termina, `actualizar()` pasa de 450 a 0 de golpe → tic. En loop, además, salta de +450 al primer valor (cerca de −10) en cada vuelta.
+- Lo mismo pasa cuando se presiona el encoder **a la mitad** de un sonido: `reproducirSonido()` lo corta en el valor que tenga en ese momento (puede ser 20.000) y salta a 0.
+- Revisé también que todos los sonidos llegan al valor máximo (±32.767). Con volumen 100 puede sonar saturado en un parlante pequeño.
+
+**Por qué importa:** no rompe nada, pero suena "sucio", sobre todo en loop.
+
+**Cómo solucionarlo (lo más simple, sin tocar código):** en Audacity, antes de convertir:
+
+1. **Efecto → Normalizar**, marcando "Eliminar desplazamiento DC" y con pico máximo en **−1 dB**. Eso centra el sonido en 0 y le deja un poco de margen.
+2. Seleccionar los últimos ~20 ms y aplicar **Efecto → Desvanecer progresivamente** (*fade out*), y lo mismo al inicio con *fade in*. Así el sonido empieza y termina en 0.
+
+(Para el corte a la mitad habría que agregar un "mini fade" dentro de `Ampli`. Es más avanzado y pueden dejarlo para después.)
+
+---
+
+#### 6. 🟡 El sentido de giro del encoder puede quedar invertido
+
+**Dónde:** [main.cpp](./codigos/v02/main.cpp) línea 53.
+
+**Qué pasa:** el README dice que el giro **horario avanza** al siguiente sonido. Pero qué sentido cuenta como `+1` depende de cuál cable va al GPIO 14 (CLK) y cuál al 15 (DT). El código está bien; solo hay que comprobarlo en la placa.
+
+**Cómo solucionarlo si sale al revés:** la clase ya trae la solución (el cuarto dato, `invertir`):
+
+```cpp
+PerillaGrupo7 perillaSelector(14, 15, CANTIDAD_SONIDOS, true);
+```
+
+o intercambiar los cables de CLK y DT. Otro detalle a probar: la clase cuenta un paso cuando las dos señales vuelven a `1` (ver el comentario en [PerillaGrupo7.cpp](./codigos/v02/PerillaGrupo7.cpp) líneas 95 y 96). En el KY-040 eso coincide con cada "clic" que se siente al girar, pero si con otro encoder avanza un sonido cada 2 clics, ese es el motivo.
+
+---
+
+#### 7. 🟡 Falta el sonido de encendido y el de "loop activado" (sigue igual que en v01)
+
+El seudo-código dice que al iniciar suena `sonidoPrendido.h` (paso 2) y que al activar el loop suena `sonidoLoopActivado.h` (paso 5). En v02 todavía no existen. No es un error, pero sí una diferencia con lo planificado. Recuerden lo comentado en la revisión #1: si los agregan al `catalogo`, el encoder también podría seleccionarlos, así que conviene guardarlos aparte.
+
+---
+
+#### 8. ⚪ Detalles menores
+
+- **`Lucecita.h` no termina con un salto de línea** (la última línea es `#endif` sin "enter" al final). Hoy no causa error, pero algunos compiladores muestran un aviso (*warning*). Basta con poner el cursor al final de `#endif` y presionar Enter.
+- **`pinLRC` se guarda pero no se usa** ([Ampli.cpp](./codigos/v02/Ampli.cpp) línea 19): la librería calcula el pin LRC sola (siempre es `clock_pin_base + 1`). No está mal tenerlo, sirve como recordatorio. Solo sepan que si lo cambian, no pasa nada.
+- **Canales DMA y PIO fijos en 0** ([Ampli.cpp](./codigos/v02/Ampli.cpp) líneas 41 y 44): siguen igual que en v01. Funciona, pero si agregan otra librería que use el canal DMA 0, chocarán.
+- **`volumen` se puede cambiar directo** (es `public`): si alguien escribe `amplificador.volumen = 80;` la ganancia no se recalcula. El comentario de [Ampli.h](./codigos/v02/Ampli.h) línea 44 ya lo advierte; bien.
+- **Encabezado de `BotonGrupo1.h` incompleto** (líneas 3 a 5): dice `desarrollado por:` y `licencia` sin completar. Como la clase la usa otro grupo, conviene llenarlo.
+- **README desactualizado** (igual que en la revisión #1): la sección **## Archivos** nombra `Boton.h`, `Perilla.h`, `Sonido.h`, `ampli.h`; el código de **### class Ampli** es la versión antigua; y el título dice **class Lucesita**. Además, ahora que tienen `script/convertir.py`, la sección **#### Audios** podría explicar los pasos: exportar el `.wav` en mono, 16 bits, 11025 Hz y correr `python convertir.py ../audio/audios-test/*.wav -o ../codigos/v02`.
+
+**Lo que está bien hecho** y vale la pena mantener:
+
+- Separar "modo loop" (`enLoop`, solo lo cambia `alternarLoop()`) de "está sonando" (`sonando`). Hace que la lógica sea mucho más fácil de seguir que en v00.
+- `reproducirSonido()` respeta el orden *detener → cargar → reproducir*.
+- El volumen sigue sin desbordarse: con ganancia 1,0 (volumen 100), la muestra más grande, 32.767 × 1,0, cabe justo en un `int16_t`.
+- `cambiarVolumen()` se llama solo cuando la perilla cambió, y no en cada vuelta.
+- La tabla `paso[16]` del encoder está bien armada: revisé los 16 casos, un giro completo suma exactamente +4 hacia un lado y −4 hacia el otro, y los rebotes del contacto se anulan solos (+1 y −1).
+- No hay choques de pines: LEDs 2–6, botones 12–13, encoder 14–15, ampli 18–19–20, potenciómetro 26. Ninguno usa los pines 23, 24, 25 y 29, que en la Pico 2 **W** están reservados para el chip inalámbrico.
+
+#### Bonus: cómo responde v02 a sus "Casos no deseados"
+
+Leyendo el código, esto es lo que **hace hoy** el programa en cada caso. Si alguna respuesta no es la que quieren, es una decisión de diseño a cambiar:
+
+| Caso | Qué hace v02 |
+| --- | --- |
+| Loop y reproducir presionados a la vez | Primero se reproduce el sonido elegido (desde el inicio) y luego se activa o desactiva el loop sobre ese sonido. |
+| Presionar reproducir mientras suena | El sonido se corta y vuelve a empezar desde el inicio (con un posible "tic", ver punto 5). |
+| Girar el encoder mientras suena | El LED cambia de inmediato; el sonido que suena sigue hasta terminar (ver punto 1). |
+| Apagar y prender con loop activo | Vuelve sin loop y en el sonido 0: `enLoop` parte en `false` y nada se guarda en memoria al apagar. |
+| Mantener presionado el selector y girar | El giro cambia el sonido elegido; el botón solo cuenta una vez (`recienPresionado`), al momento de presionar. |
+| Loop presionado dos veces muy rápido | Si las dos pulsaciones están separadas por más de 50 ms, cuentan las dos y el loop queda como estaba. Si es menos, se toma como una sola (filtro de rebote). |
+| Presionar loop mientras suena | No vuelve a empezar: el sonido que está sonando sigue, y al llegar al final se repite. |
+| Mover el volumen mientras suena | Cambia en ese mismo momento, sin esperar al siguiente sonido. |
+| ¿Dos sonidos al mismo tiempo? | No. `Ampli` guarda un solo `datosAudio`, así que cargar uno reemplaza al otro. |
+
+**Orden sugerido para corregir:** 2 y 3 (antes de soldar, porque son de circuito) → 1 → 4 → 5 → 6 (al probar en la placa) → 7.
