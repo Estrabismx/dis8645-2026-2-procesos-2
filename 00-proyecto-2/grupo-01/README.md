@@ -36,11 +36,6 @@ Era moderna y el sonido interactivo (Siglo XXI - Presente): La música y los efe
 
 <br>
 
-## Punto de partida
-
-texto
-
-<br>
 
 ## Inspiración
 
