@@ -7,7 +7,7 @@
 #include "Perilla.h"
 #include "BotonGrupo1.h"
 extern "C" { // La biblioteca de pantalla está en C; así la podemos llamar desde nuestro C++.
-#include "ssd1306.h"
+#include "Ssd1306.h"
 }
 // Dos estados: MOVER (el punto se mueve sin dejar marca) y DIBUJAR (el punto deja una línea).
 // Botón de trazo (GP14): cada pulsación alterna entre MOVER y DIBUJAR (la variable "dibujando" vive aquí en main).

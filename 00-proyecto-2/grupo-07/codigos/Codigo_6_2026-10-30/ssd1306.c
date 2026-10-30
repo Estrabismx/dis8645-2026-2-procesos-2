@@ -30,7 +30,7 @@ SOFTWARE.
 #include <string.h>
 #include <stdio.h>
 
-#include "ssd1306.h"
+#include "Ssd1306.h"
 
 inline static void swap(int32_t *a, int32_t *b) {
     int32_t *t=a;
