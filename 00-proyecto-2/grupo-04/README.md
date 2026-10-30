@@ -94,6 +94,8 @@ Perilla 2: recorrer el texto
 
 ## Esquemáticos
 
+![imagen esquemático proyecto 2](./imagenes/esquematico-proyecto2-grupo4.jpg)
+
 **Bill Of Materials**
 
 | Componente       | Referencia | Qty | Valor        | Precio | Link                                                                                       |
@@ -103,8 +105,6 @@ Perilla 2: recorrer el texto
 | Pantalla         | SS1, SS2   |   2 | LCD 1602 I2C | $4633  | https://www.mercadolibre.cl/modulo-lcd-20x4-con-interfaz-2004-para-display/p/MLC2035293542 |
 | Perilla          | P1, P2     |   2 | B10k         | $500   | https://afel.cl/products/potenciometro-10k-ohm                                             |
 | Resistor         | R1, R2     |   2 | 10k          | $20    | https://afel.cl/products/kit-500-resistencias-1-2w-50-valores                              |
-
-![imagen esquemático proyecto 2](./imagenes/esquematico-proyecto2-grupo4.jpg)
 
 ## Bibliografía
 
