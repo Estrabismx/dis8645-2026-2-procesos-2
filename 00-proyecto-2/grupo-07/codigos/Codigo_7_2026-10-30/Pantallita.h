@@ -2,7 +2,7 @@
 #define TRAZO_PANTALLITA_H
 #include "pico/stdlib.h"
 extern "C" { // La biblioteca de pantalla está en C; así la podemos llamar desde nuestro C++.
-#include "ssd1306.h"
+#include "Ssd1306.h"
 }
 // Pantallita se encarga de TODO lo que tiene que ver con la OLED: el I2C, la SSD1306 y los buffers.
 // El main solo le dice qué hacer: iniciar, limpiar, dibujar una línea y mostrar.
