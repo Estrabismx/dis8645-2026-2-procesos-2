@@ -22,7 +22,7 @@ Todos los gifs e imágenes se encuentran subidos en la carpeta de "imagenes".
 
 Códigos subidos por fecha en la carpeta "codigos".
 
-Wokwi <https://wokwi.com/projects/478683034244407297>
+[Wokwi proyecto-02](https://wokwi.com/projects/478683034244407297)
 
 ---
 
