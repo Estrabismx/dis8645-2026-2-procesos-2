@@ -22,25 +22,20 @@ Se distribuye bajo la licencia [Creative Commons Atribución-CompartirIgual 4.0 
 
 Se plantea que el sonido de un computador está condicionado por la tecnología de su época, desde los chips de síntesis que generaban melodías y efectos electrónicos hasta la incorporación de audio digital y música grabada.
 
-A partir de esta exploración, surge la pregunta: ¿cómo ha evolucionado el sonido de los videojuegos a medida que cambian las capacidades tecnológicas de los computadores? El proyecto busca reconocer estas transformaciones y comprender cómo las características sonoras permiten identificar distintas etapas en la historia de estas máquinas.
+A partir de esta exploración, surge la pregunta: ¿cómo ha evolucionado el sonido de los videojuegos a medida que cambian las capacidades tecnológicas de los computadores? El proyecto busca reconocer estas transformaciones y comprender cómo las características sonoras permiten identificar distintas etapas.
 
 La evolución del sonido y la música en los videojuegos japoneses ha transitado desde los simples tonos monofónicos de los arcades y consolas de 8 bits hasta complejas bandas sonoras dinámicas e integradas con tecnología binaural y orquestal.
 
 Fases de la evolución del sonido en Japón
 
-• Era de 8 bits y 16 bits (Años 80 - Principios de los 90): Limitada por chips de sonido de canales reducidos (como el chip PSG o el chip de FM de Yamaha en sistemas como la NES, MSX o Mega Drive/Genesis). Compositores como Koji Kondo (en Super Mario o The Legend of Zelda) y Nobuo Uematsu (en Final Fantasy) crearon melodías altamente pegajosas que definieron la identidad del chip chiptune debido a las restricciones técnicas de la memoria.
+Era de 8 bits y 16 bits (Años 80 - Principios de los 90): Limitada por chips de sonido de canales reducidos (como el chip PSG o el chip de FM de Yamaha en sistemas como la NES, MSX o Mega Drive/Genesis). Compositores como Koji Kondo (en Super Mario o The Legend of Zelda) y Nobuo Uematsu (en Final Fantasy) crearon melodías altamente pegajosas que definieron la identidad del chip chiptune debido a las restricciones técnicas de la memoria.
 
-• Era del CD-ROM y 32 bits (Mediados de los 90): Con la llegada de soportes como la PlayStation o la Sega Saturn, se dio el salto al audio grabado (pistas en formato Red Book CD o MIDI avanzado), permitiendo incorporar instrumentos acústicos reales, coros y arreglos orquestales más emotivos.
+Era del CD-ROM y 32 bits (Mediados de los 90): Con la llegada de soportes como la PlayStation o la Sega Saturn, se dio el salto al audio grabado (pistas en formato Red Book CD o MIDI avanzado), permitiendo incorporar instrumentos acústicos reales, coros y arreglos orquestales más emotivos.
 
 Era moderna y el sonido interactivo (Siglo XXI - Presente): La música y los efectos dejaron de ser simples archivos lineales para volverse adaptativos y dinámicos, reaccionando en tiempo real a las acciones del jugador, la exploración o el combate. Además, géneros como el jazz, la música electrónica y fusiones culturales pasaron a ser sellos distintivos en sagas como Persona o Sonic the Hedgehog
 
 <br>
 
-## Punto de partida
-
-texto
-
-<br>
 
 ## Inspiración
 
@@ -152,7 +147,7 @@ En el archivo .h definimos todo, declaramos todo, prometemos las cosas que hará
 
 El nombre de nuestra clases es **BotonGrupo1** 
 
-Algo importante que debemos integrar en nuestro archivo .h son:
+Algo importante que debemos integrar en nuestro archivo.h son:
 
 - La biblioteca de la Rapberry Pi Pico para poder programarla
 - Biblioteca del GPIO, para integrar la conexión física de los pines de la Raspi
@@ -198,11 +193,30 @@ Se adjunta diversos diagramas de flujo que explican el funcionamiento de cada m�
 
 <br>
 
-### class Lucesita
+### class Lucecita
 
-[texto]
+La clase lucecita nos va ayudar a identificar de forma visual los sonidos, es la forma grafica y amigable para que el usuario pueda identificar el sonido, o indicaciones de prendido y apagado.
 
-<br>
+Método constructor Lucecita():
+
+-Recibir el número del pin.
+-Configurar el pin como salida.
+-Inicializar la luz apagada.
+
+**Método prender():**
+
+-Cambiar el estado de la luz a encendida.
+-Activar el pin para encender la luz.
+
+**Método apagar():**
+
+-Cambiar el estado de la luz a apagada.
+-Desactivar el pin para apagar la luz.
+
+**Metodo parpadeo():** 
+para no ocupar sleep_ms(500) agregar el Metodo parpadeo(): 
+
+
 
 ### class Audio
 
