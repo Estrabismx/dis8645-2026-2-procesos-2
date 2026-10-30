@@ -22,15 +22,15 @@ Se distribuye bajo la licencia [Creative Commons Atribución-CompartirIgual 4.0 
 
 Se plantea que el sonido de un computador está condicionado por la tecnología de su época, desde los chips de síntesis que generaban melodías y efectos electrónicos hasta la incorporación de audio digital y música grabada.
 
-A partir de esta exploración, surge la pregunta: ¿cómo ha evolucionado el sonido de los videojuegos a medida que cambian las capacidades tecnológicas de los computadores? El proyecto busca reconocer estas transformaciones y comprender cómo las características sonoras permiten identificar distintas etapas en la historia de estas máquinas.
+A partir de esta exploración, surge la pregunta: ¿cómo ha evolucionado el sonido de los videojuegos a medida que cambian las capacidades tecnológicas de los computadores? El proyecto busca reconocer estas transformaciones y comprender cómo las características sonoras permiten identificar distintas etapas.
 
 La evolución del sonido y la música en los videojuegos japoneses ha transitado desde los simples tonos monofónicos de los arcades y consolas de 8 bits hasta complejas bandas sonoras dinámicas e integradas con tecnología binaural y orquestal.
 
 Fases de la evolución del sonido en Japón
 
-• Era de 8 bits y 16 bits (Años 80 - Principios de los 90): Limitada por chips de sonido de canales reducidos (como el chip PSG o el chip de FM de Yamaha en sistemas como la NES, MSX o Mega Drive/Genesis). Compositores como Koji Kondo (en Super Mario o The Legend of Zelda) y Nobuo Uematsu (en Final Fantasy) crearon melodías altamente pegajosas que definieron la identidad del chip chiptune debido a las restricciones técnicas de la memoria.
+Era de 8 bits y 16 bits (Años 80 - Principios de los 90): Limitada por chips de sonido de canales reducidos (como el chip PSG o el chip de FM de Yamaha en sistemas como la NES, MSX o Mega Drive/Genesis). Compositores como Koji Kondo (en Super Mario o The Legend of Zelda) y Nobuo Uematsu (en Final Fantasy) crearon melodías altamente pegajosas que definieron la identidad del chip chiptune debido a las restricciones técnicas de la memoria.
 
-• Era del CD-ROM y 32 bits (Mediados de los 90): Con la llegada de soportes como la PlayStation o la Sega Saturn, se dio el salto al audio grabado (pistas en formato Red Book CD o MIDI avanzado), permitiendo incorporar instrumentos acústicos reales, coros y arreglos orquestales más emotivos.
+Era del CD-ROM y 32 bits (Mediados de los 90): Con la llegada de soportes como la PlayStation o la Sega Saturn, se dio el salto al audio grabado (pistas en formato Red Book CD o MIDI avanzado), permitiendo incorporar instrumentos acústicos reales, coros y arreglos orquestales más emotivos.
 
 Era moderna y el sonido interactivo (Siglo XXI - Presente): La música y los efectos dejaron de ser simples archivos lineales para volverse adaptativos y dinámicos, reaccionando en tiempo real a las acciones del jugador, la exploración o el combate. Además, géneros como el jazz, la música electrónica y fusiones culturales pasaron a ser sellos distintivos en sagas como Persona o Sonic the Hedgehog
 
@@ -64,6 +64,8 @@ El encoder rotatorio cumple dos funciones en un solo componente: funciona como *
 | Botón Loop: segunda pulsación | Botón pulsador | Momentáneo, 12 × 12 mm + resistencia pull down | Desactiva la repetición continua del sonido. |
 | Cinco lucecitas LED | 5 LED + 5 resistencias | LED 5 mm*, resistencias 220–330 Ω* | Indican cuál de los cinco sonidos está seleccionado. |
 | Unidad de control | Microcontrolador | Raspberry Pi Pico 2 W (chip RP2350, 150 MHz, 520 KB RAM, 4 MB flash) | Lee el encoder, el potenciómetro y el botón Loop, enciende los LEDs y envía el audio al amplificador por I2S. |
+
+![diagrama](./imagenes/usuario.png)
 
 <br>
 
@@ -148,7 +150,7 @@ En el archivo .h definimos todo, declaramos todo, prometemos las cosas que hará
 
 El nombre de nuestra clases es **BotonGrupo1** 
 
-Algo importante que debemos integrar en nuestro archivo .h son:
+Algo importante que debemos integrar en nuestro archivo.h son:
 
 - La biblioteca de la Rapberry Pi Pico para poder programarla
 - Biblioteca del GPIO, para integrar la conexión física de los pines de la Raspi
@@ -184,11 +186,30 @@ Cuando el anterior **o** el actual cambien de estado, el `modoSwitch` lo hará
 
 <br>
 
-### class Lucesita
+### class Lucecita
 
-[texto]
+La clase lucecita nos va ayudar a identificar de forma visual los sonidos, es la forma grafica y amigable para que el usuario pueda identificar el sonido, o indicaciones de prendido y apagado.
 
-<br>
+Método constructor Lucecita():
+
+-Recibir el número del pin.
+-Configurar el pin como salida.
+-Inicializar la luz apagada.
+
+**Método prender():**
+
+-Cambiar el estado de la luz a encendida.
+-Activar el pin para encender la luz.
+
+**Método apagar():**
+
+-Cambiar el estado de la luz a apagada.
+-Desactivar el pin para apagar la luz.
+
+**Metodo parpadeo():** 
+para no ocupar sleep_ms(500) agregar el Metodo parpadeo(): 
+
+
 
 ### class Audio
 
@@ -313,3 +334,276 @@ void Ampli::controlVolumen(){
 }
 
 ```
+
+<br>
+
+## comentarios claude
+
+### revisión #1
+
+**Prompt:**
+
+> Revisa la versión del código v01 de grupo1 en proyecto 02. En este debes revisar y considerar que no hayan errores de sintaxis, funciones / metodos que se bloqueen, fallos de lógica, entre otros
+>
+> Es importante que no edites nada, pero revisa y se minusioso al hacerlo. Considera que estoy aprendiendo a programar, es por ello que todos los comentarios que realices sean desde la base explicando que falla, porque falla y como se debería solucionar.
+> Para esto en el readme.md hay una sección llamada ## comentarios claude. Escribe el prompt y tus comentarios en la revisión #1
+
+**Archivos revisados:** `codigos/v01/` → `main.cpp`, `Ampli.h/.cpp`, `Audio.h/.cpp`, `Lucecita.h/.cpp`, `PerillaGrupo7.h/.cpp`, `Sonido1.h` a `Sonido5.h`.
+No se modificó ningún archivo de código.
+
+#### Resumen rápido
+
+| # | Problema | Gravedad | ¿Qué provoca? |
+| --- | --- | --- | --- |
+| 1 | Los nombres de los arreglos de sonido no coinciden | 🔴 No compila | Error "was not declared in this scope" |
+| 2 | Faltan `BotonGrupo1.h` y `BotonGrupo1.cpp` en la carpeta v01 | 🔴 No compila | Error "No such file or directory" |
+| 3 | No hay `CMakeLists.txt` ni está enlazada la librería de audio I2S | 🔴 No compila | No se puede construir el proyecto |
+| 4 | Los sonidos están en formato WAV de 16/24 bits, pero el código los lee como 8 bits | 🔴 Suena mal | Ruido fuerte, sonido distorsionado y más lento |
+| 5 | El sonido cargado puede no ser el que muestra el LED | 🟠 Error de lógica | Loop reproduce un sonido distinto al elegido |
+| 6 | Parpadeo del LED parte "a destiempo" | 🟡 Detalle | El LED se apaga de inmediato al activar loop |
+| 7 | Sonido de encendido y sonido de "loop activado" no están programados | 🟡 Falta funcionalidad | No coincide con el seudo-código |
+| 8 | Detalles menores (canales DMA/PIO fijos, include sin usar, README desactualizado) | ⚪ Menor | Ordenar / prevenir problemas futuros |
+
+**Buena noticia sobre "funciones que se bloqueen":** revisé todo el `while (true)` y **ninguna función bloquea el programa**. No hay `sleep_ms`, `take_audio_buffer(..., false)` no espera, el botón y el parpadeo usan el reloj (`to_ms_since_boot`) en vez de pausas, y el encoder se lee en cada vuelta. Esa parte está muy bien resuelta. 👏
+
+---
+
+#### 1. 🔴 Los nombres de los arreglos de sonido no coinciden (no compila)
+
+**Dónde:** [Audio.cpp](./codigos/v01/Audio.cpp) líneas 19 a 41, y la línea 2 de cada `SonidoN.h`.
+
+**Qué falla:** en `Audio.cpp` se usan los nombres `arreglo_sonido_1`, `arreglo_sonido_2`, ... `arreglo_sonido_5`:
+
+```cpp
+catalogo[0].muestras = arreglo_sonido_1;
+catalogo[0].tamano = sizeof(arreglo_sonido_1);
+```
+
+Pero dentro de los archivos de sonido, los arreglos se llaman distinto:
+
+```cpp
+// Sonido1.h
+static const uint8_t Sonido_1[]  = { ... };
+```
+
+**Por qué falla:** C++ no "adivina" nombres. Un `#include "Sonido1.h"` solo copia y pega el contenido del archivo; el nombre que existe es `Sonido_1`, no `arreglo_sonido_1`. Cuando el compilador llega a `arreglo_sonido_1` no lo encuentra y se detiene con un error tipo:
+
+```
+error: 'arreglo_sonido_1' was not declared in this scope
+```
+
+(Este error ya venía de v00, porque ahí también se usaba `arreglo_sonido_N`. El comentario de la línea 9 de `Audio.cpp` lo advierte: *"debes ajustar estos nombres para que coincidan con tus archivos reales"*.)
+
+**Cómo solucionarlo:** que ambos lados usen el mismo nombre. Hay dos caminos, elijan **uno**:
+
+- Cambiar `Audio.cpp` para usar `Sonido_1` ... `Sonido_5`, **o**
+- Cambiar la línea 2 de cada `SonidoN.h` para que diga `arreglo_sonido_N`.
+
+Recomendación: cambiar `Audio.cpp`, porque cada vez que vuelvan a convertir un audio con la web, el archivo nuevo traerá el nombre que ustedes escriban en la página; usen siempre el mismo patrón.
+
+---
+
+#### 2. 🔴 Faltan `BotonGrupo1.h` y `BotonGrupo1.cpp` en la carpeta v01 (no compila)
+
+**Dónde:** [main.cpp](./codigos/v01/main.cpp) línea 8 → `#include "BotonGrupo1.h"`.
+
+**Qué falla:** en la carpeta `codigos/v01/` no existe ningún archivo `BotonGrupo1.h` ni `BotonGrupo1.cpp`.
+
+**Por qué falla:** `#include "..."` con comillas busca el archivo en la misma carpeta del `.cpp`. Si no está, el compilador se detiene con:
+
+```
+fatal error: BotonGrupo1.h: No such file or directory
+```
+
+**Ojo, hay dos versiones distintas de la clase en el repositorio:**
+
+- `00-proyecto-2/clases/BotonGrupo1.h/.cpp` → **sí** tiene el atributo `recienPresionado` (el que usa `main.cpp` en las líneas 123 y 132).
+- `grupo-01/prueba-led/BotonGrupo1.h/.cpp` → es una versión antigua, **no** tiene `recienPresionado`. Si copian esta, el error cambia a `'class BotonGrupo1' has no member named 'recienPresionado'`.
+
+**Cómo solucionarlo:** copiar `BotonGrupo1.h` y `BotonGrupo1.cpp` desde **`00-proyecto-2/clases/`** a `codigos/v01/`.
+
+---
+
+#### 3. 🔴 No hay `CMakeLists.txt` ni está enlazada la librería de audio (no compila)
+
+**Dónde:** carpeta [codigos/v01/](./codigos/v01/) completa, y [Ampli.h](./codigos/v01/Ampli.h) línea 16 → `#include "pico/audio_i2s.h"`.
+
+**Qué falla:** la carpeta v01 solo tiene archivos `.cpp` y `.h`. Para compilar un programa de Raspberry Pi Pico se necesita un `CMakeLists.txt` (la "receta" que le dice al compilador qué archivos juntar y qué librerías usar), como el que sí tienen `prueba-led` o `prueba-multiplexor`.
+
+Además, `pico/audio_i2s.h` **no viene en el Pico SDK normal**: pertenece a otra librería llamada **pico-extras**. Si no se agrega, aparece `fatal error: pico/audio_i2s.h: No such file or directory`.
+
+**Por qué importa:** aunque el código esté perfecto, sin la receta no hay forma de convertirlo en el archivo `.uf2` que se carga a la Raspi.
+
+**Cómo solucionarlo:**
+
+1. Crear el proyecto v01 con la extensión de Raspberry Pi Pico en VS Code (igual que hicieron con `prueba-led`), placa **Pico 2 W**, y copiar dentro los archivos.
+2. Descargar **pico-extras** (repositorio oficial de Raspberry Pi en GitHub) y agregar `pico_extras_import.cmake` al proyecto.
+3. En el `CMakeLists.txt`, agregar todos los `.cpp` y las librerías que usa el código:
+
+```cmake
+add_executable(v01
+  main.cpp
+  Ampli.cpp
+  Audio.cpp
+  Lucecita.cpp
+  PerillaGrupo7.cpp
+  BotonGrupo1.cpp
+)
+
+target_link_libraries(v01
+  pico_stdlib
+  hardware_adc      # potenciómetro
+  hardware_gpio     # leds, botones, encoder
+  pico_audio_i2s    # ampli MAX98357A (viene de pico-extras)
+)
+```
+
+Si falta un `.cpp` en `add_executable`, el error será del tipo `undefined reference to 'Lucecita::prender()'`: significa que el compilador vio la promesa (`.h`) pero no encontró el cómo (`.cpp`).
+
+---
+
+#### 4. 🔴 Los sonidos están en un formato distinto al que el código espera (suena mal)
+
+**Dónde:** [Ampli.cpp](./codigos/v01/Ampli.cpp) líneas 165 a 171 y los archivos `Sonido1.h` ... `Sonido5.h`.
+
+**Qué espera el código:** `actualizar()` asume que cada número del arreglo es **una muestra de 8 bits sin signo** (de 0 a 255, donde 128 es silencio):
+
+```cpp
+uint8_t muestraOriginal = datosAudio[posicionAudio];     // 1 byte = 1 muestra
+int16_t muestraCentrada = (int16_t)muestraOriginal - 128; // 128 = silencio
+```
+
+**Qué tienen realmente los archivos:** si miramos los primeros bytes de cada `SonidoN.h` podemos "leer" su cabecera:
+
+```
+0x52, 0x49, 0x46, 0x46   → "RIFF"  (es un archivo .wav completo, con cabecera)
+0x57, 0x41, 0x56, 0x45   → "WAVE"
+...
+0x11, 0x2b               → 11025 Hz  ✅ (esto sí coincide con Ampli)
+0x10, 0x00               → 16 bits por muestra ❌ (Sonido2, 3, 4 y 5)
+0x18, 0x00               → 24 bits por muestra ❌ (Sonido1)
+```
+
+Y al final de cada archivo aparece texto como `"Video Game Soundtrack"`: son metadatos (etiquetas) del `.wav`.
+
+**Por qué suena mal:**
+
+- **16 bits = 2 bytes por muestra** (24 bits = 3 bytes). El código lee de a 1 byte, entonces parte cada muestra en pedazos y los trata como muestras separadas.
+- En 16 bits el silencio es `0x00 0x00` (y valores cercanos como `0xff 0xff`). Leído como 8 bits sin signo, `0x00` se convierte en −128 y `0xff` en +127: **¡el silencio se transforma en un zumbido al máximo volumen!**
+- Como hay el doble (o triple) de "muestras", el sonido dura el doble (o triple) y suena más grave y lento.
+- La cabecera (44 bytes al inicio) y los metadatos del final también se "reproducen", lo que agrega un clic/chasquido al comienzo y al final.
+
+**Cómo solucionarlo (la opción más simple, sin tocar Ampli):** volver a exportar los 5 sonidos en el formato exacto que espera `Ampli`:
+
+1. Abrir el audio en **Audacity**.
+2. Pasarlo a **mono** (Pistas → Mezclar → Mezclar estéreo a mono).
+3. Cambiar la frecuencia del proyecto a **11025 Hz** (abajo a la izquierda).
+4. Exportar → "Otros formatos sin comprimir" → Encabezado: **RAW (header-less)** → Codificación: **Unsigned 8-bit PCM**.
+5. Convertir ese archivo `.raw` con [File to C style array converter](https://notisrac.github.io/FileToCArray/), usando como nombre `Sonido_1`, `Sonido_2`... (ver punto 1) y tipo `uint8_t`.
+
+Así, cada byte del arreglo sí es una muestra de 8 bits, sin cabecera ni metadatos, y `sizeof(...)` entrega justo la cantidad de muestras. Les recomiendo documentar estos pasos en la sección **#### Audios** del README, donde dice "nombrar el formato que debe tener el archivo".
+
+(Otra opción sería cambiar `Ampli` para leer audio de 16 bits y saltarse la cabecera, pero es más difícil y los arreglos ocuparían el doble de memoria.)
+
+---
+
+#### 5. 🟠 El sonido cargado puede no ser el que muestra el LED (error de lógica)
+
+**Dónde:** [main.cpp](./codigos/v01/main.cpp) líneas 111 a 116 y 132 a 136.
+
+**Qué falla:** el sonido nuevo solo se carga en el ampli **en el mismo momento en que se gira el encoder**, y solo si no hay nada sonando:
+
+```cpp
+if (perillaSelector.cambio) {
+  ...
+  if (!amplificador.sonando) {
+    audio.enviarSonido(amplificador, sonidoSeleccionado);
+  }
+}
+```
+
+**Paso a paso del problema:**
+
+1. Presiono el encoder → suena el **sonido 0**.
+2. Mientras suena, giro el encoder dos clics → el LED pasa al **sonido 2**, pero como `sonando` es `true`, **no se carga** el sonido 2.
+3. El sonido 0 termina solo → `sonando` pasa a `false`. Nadie vuelve a revisar el encoder, porque no lo he girado de nuevo.
+4. Presiono **Loop** → `alternarLoop()` llama a `reproducir()` y suena en bucle el **sonido 0**, aunque el LED que parpadea es el del **sonido 2**.
+
+El comentario de la línea 112 dice *"así el botón Loop repite el sonido que se ve en los leds"*, pero en este caso eso no se cumple. Lo mismo pasa si giro el encoder durante un loop, lo desactivo y lo vuelvo a activar.
+
+**Por qué falla:** la condición "cargar el sonido nuevo" depende de dos cosas que ocurren en momentos distintos (girar el encoder **y** que no esté sonando), pero el código solo la revisa en el instante en que se gira.
+
+**Cómo solucionarlo:** sacar la carga del bloque del encoder y revisarla **en cada vuelta del while**, comparando lo que está cargado (`amplificador.sonidoActual`) con lo que se ve en los LED (`sonidoSeleccionado`). Por ejemplo, justo antes del bloque `// -- loop --`:
+
+```cpp
+// si no hay nada sonando y el sonido cargado no es el que muestra el led,
+// se carga el sonido elegido para que Loop repita el correcto
+if (!amplificador.sonando && amplificador.sonidoActual != sonidoSeleccionado) {
+  audio.enviarSonido(amplificador, sonidoSeleccionado);
+}
+```
+
+Así, apenas el sonido anterior termine, en la siguiente vuelta del while (microsegundos después) quedará cargado el sonido correcto. Esta pregunta también está en sus **Casos no deseados** (*"¿qué pasa si el encoder gira mientras está sonando el audio?"*): con este cambio la respuesta sería "el LED cambia de inmediato y el sonido nuevo queda listo cuando termine el actual".
+
+---
+
+#### 6. 🟡 El parpadeo del LED parte "a destiempo"
+
+**Dónde:** [Lucecita.cpp](./codigos/v01/Lucecita.cpp) líneas 47 a 66 y [main.cpp](./codigos/v01/main.cpp) líneas 141 a 147.
+
+**Qué pasa:** `parpadeo()` compara el tiempo actual con `ultimaLecturaParpadeo`. Ese valor parte en `0` y solo se actualiza cuando el LED parpadea. Entonces:
+
+- La **primera vez** que se activa el loop (por ejemplo, 10 segundos después de encender), `tiempoActual - 0` es mucho mayor que 250 ms → el LED se apaga **de inmediato**, en vez de quedarse 250 ms prendido.
+- Lo mismo ocurre si en modo loop se gira el encoder: el LED nuevo nunca había parpadeado (o lo hizo hace mucho) y se apaga apenas se prende.
+
+**Por qué importa:** no rompe nada, pero se ve como un "pestañeo" raro y puede hacer pensar que el LED no prendió.
+
+**Cómo solucionarlo:** reiniciar el "cronómetro" del parpadeo cada vez que se prende el LED a mano. Una forma simple es agregar en `Lucecita::prender()` una línea que guarde el momento:
+
+```cpp
+void Lucecita::prender() {
+    prendida = true;
+    gpio_put(patita, true);
+    // nuevo: el parpadeo empieza a contar desde que se prendio
+    ultimaLecturaParpadeo = to_ms_since_boot(get_absolute_time());
+}
+```
+
+**Ojo:** `parpadeo()` también llama a `prender()`, así que esto no cambia el ritmo del parpadeo (ya guarda el mismo tiempo en la línea 65), solo arregla el primer ciclo.
+
+---
+
+#### 7. 🟡 Falta programar el sonido de encendido y el de "loop activado"
+
+**Dónde:** comparación entre el **seudo-código** de este README y `main.cpp`.
+
+**Qué pasa:** el seudo-código dice:
+
+- Paso 2: *"suena sonidoPrendido.h"* al iniciar la máquina.
+- Paso 5: *"se identifica reproduciendo el sonidoLoopActivado.h"* al activar el loop.
+
+Ninguno de los dos existe en v01: no hay archivos `sonidoPrendido.h` ni `sonidoLoopActivado.h`, y `main.cpp` no los reproduce. No es un error del código, pero sí una diferencia entre lo que planificaron y lo que está programado.
+
+**Cómo solucionarlo (cuando lo implementen):** tengan en cuenta que `Audio` hoy solo conoce 5 sonidos y que el encoder recorre `CANTIDAD_SONIDOS`. Si agregan estos sonidos "especiales" al mismo `catalogo`, el encoder también los podría seleccionar. Es mejor guardarlos aparte (por ejemplo un método `audio.reproducirEspecial(...)`) y decidir qué pasa si se presiona Loop mientras suena el sonido de "loop activado".
+
+Relacionado: hoy, si el loop está activo y se gira el encoder, **el LED se mueve pero sigue sonando en bucle el sonido anterior** hasta que se presione el encoder. Puede ser una decisión válida, pero conviene escribirla en **Casos no deseados** para que quede como decisión de diseño y no como error.
+
+---
+
+#### 8. ⚪ Detalles menores
+
+- **Canales DMA y PIO fijos** ([Ampli.cpp](./codigos/v01/Ampli.cpp) líneas 40 y 43): se usa siempre el canal DMA `0` y la máquina PIO `0`. Funciona hoy, pero si más adelante agregan algo que también los use (por ejemplo otra librería), chocarán. Los comentarios "ojo" ya lo advierten, ¡bien!
+- **`#include <stdio.h>` sin usar** ([main.cpp](./codigos/v01/main.cpp) línea 2): no se usa `printf` en ningún lugar. No hace daño; es útil para depurar. Una idea: imprimir `printf("sonido %d\n", sonidoSeleccionado);` al girar el encoder para revisar en el monitor serial que todo funciona.
+- **Potenciómetro "nervioso"**: la lectura analógica puede saltar entre dos valores (por ejemplo 49 ↔ 50) aunque nadie toque la perilla. Como solo se recalcula la ganancia, no se nota, pero si algún día ponen un `printf` dentro de `if (perillaVolumen.cambio)` verán muchos mensajes. Es normal.
+- **README desactualizado**:
+  - La sección **## Archivos** nombra `Boton.h`, `Perilla.h`, `Sonido.h`, `ampli.h`, pero los archivos reales son `BotonGrupo1`, `PerillaGrupo7`, `Audio`, `Ampli`.
+  - El código de **### class Ampli** del README es la versión antigua: usa `nuevoPinReloj` y `nuevoPinDatos` sin declararlos y `int pinLRC = pinReloj + 1;` (que daría un valor basura, porque `pinReloj` aún no tiene valor). En v01 esto **ya está corregido** en `Ampli.cpp` (línea 18), así que solo falta actualizar el README.
+  - El título dice **class Lucesita** y el archivo se llama **Lucecita**.
+- **Lo que está bien hecho** y vale la pena mantener:
+  - El `while` sin `sleep_ms` y `actualizar()` sin esperar: es la forma correcta de mantener el audio fluido.
+  - `reproducirSonido()` respeta el orden *detener → cargar → reproducir*, evitando que el sonido nuevo parta a la mitad.
+  - Usar `CANTIDAD_SONIDOS` en vez de escribir `5` en varios lugares.
+  - El volumen logarítmico de 0 a 100 está bien calculado y no se desborda: el valor máximo es 127 × 256 = 32.512, que cabe en un `int16_t` (máximo 32.767).
+  - La conexión de pines no tiene choques: LEDs 2–6, botones 12–13, encoder 14–15, ampli 18–19–20, potenciómetro 26.
+
+**Orden sugerido para corregir:** 2 → 1 → 3 (hasta que compile) → 4 (para que suene bien) → 5 → 6 → 7.
