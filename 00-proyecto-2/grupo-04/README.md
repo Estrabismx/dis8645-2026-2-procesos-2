@@ -90,7 +90,21 @@ Perilla 2: recorrer el texto
 
 ## Diagramas de flujo
 
+![imagen del diagrama de flujo de proyecto 2](./imagenes/diagramadeflujo-proyecto02-grupo04.jpg)
+
 ## Esquemáticos
+
+**Bill Of Materials**
+
+| Componente       | Referencia | Qty | Valor        | Precio | Link                                                                                       |
+|------------------|------------|-----|--------------|--------|--------------------------------------------------------------------------------------------|
+| RaspberryPi_Pico | A1         |   1 |              | $11290 | https://raspberrypi.cl/products/raspberry-pi-pico-w-con-conexion-wifi                      |
+| Botón Pulsador   | B1, B2     |   2 |              | $100   | https://afel.cl/products/kit-boton-tactil-6x6x5-interruptor-5-unidades                     |
+| Pantalla         | SS1, SS2   |   2 | LCD 1602 I2C | $4633  | https://www.mercadolibre.cl/modulo-lcd-20x4-con-interfaz-2004-para-display/p/MLC2035293542 |
+| Perilla          | P1, P2     |   2 | B10k         | $500   | https://afel.cl/products/potenciometro-10k-ohm                                             |
+| Resistor         | R1, R2     |   2 | 10k          | $20    | https://afel.cl/products/kit-500-resistencias-1-2w-50-valores                              |
+
+![imagen esquemático proyecto 2](./imagenes/esquematico-proyecto2-grupo4.jpg)
 
 ## Bibliografía
 
@@ -102,7 +116,6 @@ Perilla 2: recorrer el texto
 
 [Wikipedia - Dual Analog](https://es.wikipedia.org/wiki/DualAnalog)
 
-
 **Imágenes:**
 
 [Nokia 9000](https://www.elmundo.es/tecnologia/2026/08/15/6a8014c6e4d4d85a078b458d.html)
@@ -110,6 +123,10 @@ Perilla 2: recorrer el texto
 [Nokia 3310](https://www.t13.cl/noticia/tendencias/tecnologia/es-cierto-va-regresar-indestructible-nokia-3310-plena-era-smartphones)
 
 [Play Station 1](https://www.fullcompras.cl/Sony-Playstation-PS-One---Consola-de-videojuegos-renovada?srsltid=AYCX9vL8oIILWeRBE8-nlHRv45sFf17SLITUHpGW-0kN0Bel9h7SiZZu)
+
+**Conversor de tablas excel a markdown:** 
+
+[Tables Gnerator](https://www.tablesgenerator.com/markdown_tables)
 
 ## Prompts usados
 
