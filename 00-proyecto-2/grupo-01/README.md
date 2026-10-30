@@ -43,9 +43,10 @@ El proyecto consiste en un dispositivo sonoro inspirado en las configuraciones y
 
 Otro aspecto interesante reside en las opciones de personalización. Sharp X68000 se puede ampliar gracias a sus puertos, permitiendo añadir cosas como un sintetizador MIDI Roland MT32 para mejorar las melodías del chip Yamaha YM2151 que trae de serie
 
-
+la Sharp X68000 lideró el mercado de los sistemas informáticos japoneses, finalizando su reinado alrededor de 1996. Gracias al chip de sonido Yamaha YM2151, la computadora pudo reproducir algunas de las mejores bandas sonoras de videojuegos (VGM) basadas en síntesis FM jamás lanzadas. 
 
 https://www.youtube.com/channel/UC202eItEazdvnMRK09RTtaw
+https://xvgmradio.com/episode-119-the-sounds-of-the-sharp-x68000/
 
 <br>
 
