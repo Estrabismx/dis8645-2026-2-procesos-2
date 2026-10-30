@@ -6,13 +6,13 @@ Fecha de entrega: 2026-11-03
 
 ## Integrantes
 
-Emilia Contreras / [hazzaily](https://github.com/hazzaily) / 
+Emilia Contreras / [hazzaily](https://github.com/hazzaily) / Diagrama de flujo, esquemático, documentación.
 
-Kristel Ladrón de Guevara / [kristelagj](https://github.com/kristelagj) /
+Kristel Ladrón de Guevara / [kristelagj](https://github.com/kristelagj) / Esquemático, registro, documentación.
 
-Monserrat Paredes / [Monserrat-Paredes](https://github.com/Monserrat-Paredes) / 
+Monserrat Paredes / [Monserrat-Paredes](https://github.com/Monserrat-Paredes) / Código, documentación.
 
-Katalina Riquelme / [riyakatalinaa](https://github.com/riyakatalinaa) / 
+Katalina Riquelme / [riyakatalinaa](https://github.com/riyakatalinaa) / Diagrama de flujo, documentación.
 
 ## Importante 
 
@@ -21,6 +21,8 @@ Todas las imágenes y gifs son de nuestra autoría.
 Todos los gifs e imágenes se encuentran subidos en la carpeta de "imagenes".
 
 Códigos subidos por fecha en la carpeta "codigos".
+
+Conversaciones con Claude al final del ReadMe.
 
 [Wokwi proyecto-02](https://wokwi.com/projects/478683034244407297)
 
