@@ -7,11 +7,11 @@
 #include "Audio.h"
 
 // incluye los archivos externos que contienen los arreglos de 16 bits
-#include "sonido0.h"
-#include "sonido1.h"
-#include "sonido2.h"
-#include "sonido3.h"
-#include "sonido4.h"
+#include "Sonido0.h"
+#include "Sonido1.h"
+#include "Sonido2.h"
+#include "Sonido3.h"
+#include "Sonido4.h"
 
 // funcion inicial que se ejecuta al crear la clase
 Audio::Audio() {
