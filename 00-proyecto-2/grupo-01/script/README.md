@@ -64,3 +64,20 @@ El script nació al revisar los archivos `Sonido_N.h` de `codigos/v02`. Se pidi�
   - se corrigen los `#include` y los nombres de los arreglos;
   - se quita la conversión de 8 bits (`- 128` y `* 256`).
 - **Dejar el script en el repositorio** con este README, para poder convertir sonidos nuevos.
+
+## generarSonidoSistema.py
+
+Crea el sonido de sistema que usa la clase `Audio` de [codigos/v03](../codigos/v03) para `sonidoInicio`, `sonidoLoop` y `sonidoApagado` (por ahora los tres usan el mismo sonido).
+
+Es un arpegio corto (la, do sostenido, mi, la) con onda cuadrada de 25 %, el sonido típico de los chips de 8 bits. Dura unos 0,36 s, empieza y termina en silencio, y la onda está centrada en 0 para que el parlante no dé "tics".
+
+Genera dos archivos:
+
+- un `.wav` (mono, 16 bits, 11025 Hz) para escucharlo en el computador;
+- `SonidoSistema.h`, con el arreglo `static const uint16_t sonidoSistema[]`, en el mismo formato que `convertir.py`.
+
+```sh
+python generarSonidoSistema.py --wav ../audio/sonido-sistema.wav -o ../codigos/v03
+```
+
+Para cambiar el sonido se editan las listas `NOTAS` (frecuencia y duración de cada nota) y `AMPLITUD` al inicio del script, y se vuelve a correr.

@@ -81,17 +81,49 @@ El encoder rotatorio cumple dos funciones en un solo componente: funciona como *
 
 ## Casos no deseados
 
-- ¿que pasa si estoy apretando botón loop y botón de reproducir a la vez?
-- ¿que pasa si mientras está sonando un audio se vuelve a presionar el botón para reproducir sonido?
-- ¿que pasa si el encoder gira mientras está sonando el audio? ¿cambian ambos o no cambia ninguno?
-- ¿que pasa si el sonido queda reproduciendo en loop, luego se apaga el sistema y se enciende de nuevo, el sonido queda sonando en loop o se reincia?
-- ¿que pasa si se mantiene presionado el botón de selección mientras se gira la perilla?
-- ¿que pasa si el encoder se presiona y se gira a la vez?
-- ¿que pasa si el loop se presiona dos veces dentro de un lapso de tiempo muy corto? ¿se desactiva o se mantiene?
-- ¿que pasa si presiono loop mientras está sonando algo? ¿empezará de cero o el sonido quedará en bucle?
-- ¿que pasa si movemos la perilla de volumen mientras está sonando? ¿registra el último valor de volumen para cuando termine el sonido actual y comience otro? ¿o el volumen es regulable mientras suena?
-- ¿que pasaría si es que mientras suena sonidoInicio.h selecciono otro audio para que se reproduzca?
-- ¿se pueden hacer sonar dos audios al mismo tiempo?
+Nos plantemos diversas situaciones hipoteticas y ver como debería reaccionar la máquina a ellas
+
+Todas comienzan con la pregunta ¿que pasa si...
+
+- ... estoy apretando botón loop y botón de selector a la vez?
+
+    - En caso de que se presionen ambos botones en el mismo ms, se priorizará el modo loop y luego el selector
+
+- ... mientras está sonando un audio se vuelve a presionar el botón para reproducir sonido?
+
+    - El sonido debe parar y volver a reproducirse, esto con un margen de 500ms para no saturar la memoria en caso de que se presione de manera muy reiterativa, esto debe funcionar en base a un atributo denominado margenSonido
+
+- ... el encoder gira mientras está sonando el audio? ¿cambian ambos o no cambia ninguno?
+
+    - El cambio de led y sonido debe ocurrir solo si no hay sonido en reproducción
+
+- ... el sonido queda reproduciendo en loop, luego se apaga el sistema y se enciende de nuevo, el sonido queda sonando en loop o se reincia?
+
+    - al apagarse la máquina, debe volver al estado base. Considerando que este apagado solo posee la función de que nada pueda sonar ni encenderse, pero la raspi seguira alimentada
+
+- ... se mantiene presionado el botón de selección mientras se gira la perillaEncoder?
+
+    - por la lógica de class BotonGrupo1, el mantener presionado no debería afectar el selector, ya que cuenta solo la primera vez que se presiona
+
+- ... el loop se presiona dos veces dentro de un lapso de tiempo muy corto? ¿se desactiva o se mantiene?
+
+   - el botón loop debe funcionar en base a estadoPresionarSwitch, por lo que si es false está apagado el loop. Además este metodo debe leer un solo presionar, el mantenerlo presionado x cantidad de segundos no influye
+
+- ... presiono loop mientras está sonando algo? ¿empezará de cero o el sonido quedará en bucle?
+
+    - es ideal que el sonido, una vez termine se actualice al modo loop y empiece su bucle. En otras palabras, no queremos que se pare y empiece denuevo el sonido
+
+- ... movemos la perilla de volumen mientras está sonando? ¿registra el último valor de volumen para cuando termine el sonido actual y comience otro? ¿o el volumen es regulable mientras suena?
+
+    - Si es posible que el volumen cambie de manera dínamica mientras suena, es ideal, en caso de que no sea posible. El cambio debe ocurrir al finalizar el sonido
+
+- ... es que mientras suena sonidoInicio.h selecciono otro audio para que se reproduzca?
+
+    - no debe ser posible hacer nada mientras suena SonidoInicio, al igual que con sonidoLoop y sonidoApagado
+
+- ¿ se pueden hacer sonar dos audios al mismo tiempo?
+
+    - no debe ser posible ejecutar 2 sonidos en simultáneo
 
 <br>
 
@@ -134,6 +166,18 @@ ampli.h + ampli.cpp
 7. Si se presiona botónSelector se reproduce el sonido en el que se encuentre 
 
 8. si se gira la perillaVolumen, el valor asociado cambiará el volumen
+
+### relación interfaz y código
+
+- botonSelector corresponde al botón de la perilla y funciona con `leer()` y detectar `presionado`
+
+- perillaSelector corresponde al encoder que se desplaza por los 5 sonidos seleccionables
+
+- botonLoop es un pushbutton que está enlazado con la variable `bool estadoPresionarSwitch`, si este es falso, el estado loop es falso
+
+- volumen es un potenciometro, ubicado en el GPIO26 y funciona con valores de 0 a 100
+
+<br>
 
 ## clases
 
