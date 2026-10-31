@@ -256,7 +256,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "proyecto-2-grupo1.kicad_pro",
+    "filename": "proyecto-2-grupo01.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -411,18 +411,18 @@
     "subpart_id_separator": 0,
     "top_level_sheets": [
       {
-        "filename": "proyecto-2-grupo1.kicad_sch",
-        "name": "Raíz",
+        "filename": "proyecto-2-grupo01.kicad_sch",
+        "name": "proyecto-2-grupo01",
         "uuid": "8ce19c5e-8b50-4b6e-8e92-1e328c87a89d"
       }
     ],
-    "used_designators": "SW1-2,RV1,#PWR1-11,D1-6,R1-6,#FLG1-2,J1,A1,LS1",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
     [
       "8ce19c5e-8b50-4b6e-8e92-1e328c87a89d",
-      "Raíz"
+      "proyecto-2-grupo01"
     ]
   ],
   "text_variables": {},
