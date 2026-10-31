@@ -8,6 +8,10 @@
 - Yaira Ruiz [_(yairaruiz)_](https://github.com/disenoUDP/dis8645-2026-2-procesos-2/tree/main/26-yairaruiz)
 - Marcela Zuñiga [_(marcezm)_](https://github.com/disenoUDP/dis8645-2026-2-procesos-2/tree/main/32-marcezm)
 
+## Concepto
+Durante la infancia, los primeros acercamientos a la tecnología muchas veces ocurrían a través de pequeñas máquinas que, con pantallas simples, botones y sonidos electrónicos, construían pequeños universos interactivos. No necesitaban grandes capacidades ni funciones complejas, si no que, bastaba con presionar un botón para descubrir algo nuevo, cambiar una expresión, recibir un mensaje o comenzar un juego.  
+Estos dispositivos representaban una primera aproximación al mundo digital, donde el descubrimiento formaba parte de la experiencia y más que herramientas destinadas a resolver problemas, eran objetos que invitaban a imaginar, explorar y jugar.
+A partir de esta idea, el proyecto busca recuperar esa experiencia de inmersión tecnológica sencilla buscando reinterpretar el lenguaje proponiendo un pequeño universo de interacción en torno a las emociones, donde cada acción abre una nueva posibilidad de exploración.
 
 ## Descripción general
 El proyecto consiste en una máquina que tiene como fin ser un acompañamiento emocional, permitiendo explorar distintas formas de interactuar.
@@ -85,10 +89,16 @@ Planeamos realizar la carcasa en impresión 3d, para mantenernos fiel a las form
 
 ### BOM: Lista de componentes
 
-| Componente | Pin | Nota |
-|------------|-----|------|
-| Rasberry Pi Pico 2W |  | |
-|  | |  |
+| **Control / Elemento** | **Componente** | **Especificación** | **Acción** |
+|---|---|---|---|
+| Botón de encendido/apagado | Botón pulsador | Momentáneo, conectado a GP14 | Alterna entre el estado encendido y apagado de la máquina. |
+| Perilla de selección de modo | Potenciómetro | Tipo lineal, conectado a GP26. Tres rangos de selección. | Permite cambiar entre los tres modos de pantalla: Expresiones, Mensajes y Minijuego. |
+| Perilla de selección emocional | Potenciómetro | Tipo lineal, conectado a GP27. Cuatro rangos de selección. | Permite seleccionar una de las cuatro emociones disponibles. Funciona únicamente en el modo 01. |
+| Botón de salto | Botón pulsador | Momentáneo, conectado a GP15 | Permite ejecutar el salto del personaje durante el minijuego. Solo funciona en el modo 03. |
+| Luz indicadora | LED + resistencia | LED conectado a GP13, con resistencia limitadora de corriente. | Se enciende al seleccionar el modo 03, indicando que el minijuego está activo. |
+| Pantalla | Pantalla OLED | Controlador SSD1306, resolución 128 × 64 píxeles. | Presenta las expresiones, mensajes y elementos gráficos del minijuego. |
+| Unidad de control | Microcontrolador | Raspberry Pi Pico 2 W, chip RP2350, 150 MHz, 520 KB RAM y 4 MB flash. | Procesa las entradas de los botones y potenciómetros, controla los modos de funcionamiento y gestiona las respuestas visuales de la pantalla y el LED. |
+
 
 ### Esquemático
 
@@ -295,11 +305,20 @@ flowchart TD
 ```
 codigo/
 ├── main.cpp
-    └── Boton.h / Boton.cpp
-    └── Perilla.h / Perrilla.cpp
-    └── Emociones.h / Emociones.cpp
-    └── Mensajes.h / Emociones.cpp
-    └── Juego.h / Juego.cpp
+├── Boton.h
+├── Boton.cpp
+├── Perilla.h
+├── Perilla.cpp
+├── Lucecita.h
+├── Lucecita.cpp
+├── Pantalla.h
+├── Pantalla.cpp
+├── Emociones.h
+├── Emociones.cpp
+├── Mensajes.h
+├── Mensajes.cpp
+├── Juego.h
+└── Juego.cpp
 ```
 
 ### Clases escritas por nosotras
