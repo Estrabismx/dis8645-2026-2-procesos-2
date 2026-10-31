@@ -57,7 +57,7 @@ Aunque ahora parecen herramientas bastante básicas, nos pareció interesante pe
 
 Lo importante era que no necesitabas saber programar para generar una imagen. Podías seleccionar una herramienta, mover el mouse y comenzar a dibujar.
 
-#### 03.1. ¿Cómo nació MacPaint?
+#### 3.1. ¿Cómo nació MacPaint?
 
 MacPaint fue desarrollado por Bill Atkinson, quien ya había trabajado en sistemas gráficos para los computadores de Apple.
 
@@ -354,13 +354,87 @@ En esta etapa estamos enfocadas en relacionar todo lo que hemos investigado con 
 
 Todavía estamos trabajando en el desarrollo de TRAZO, por lo que este registro reúne las decisiones, pruebas y avances que hemos realizado hasta el momento.
 
-## Esquemáticos
+## 13. Código 5 — Integración de los componentes 30-10-2026
 
-## Referentes
+En este avance reunimos las distintas funciones que veníamos trabajando por separado.
 
-## Bibliografía
+Ya teníamos desarrollado el movimiento con las perillas, pero nos faltaba incorporar los botones que preparó el otro grupo.
 
-### 13. Fuentes de investigación
+Para esto utilizamos nuestra clase `Perilla` y agregamos la clase `BotonGrupo1` dentro del programa principal.
+
+Así dejamos reunidas las funciones para mover el cursor, cambiar entre MOVER y DIBUJAR y borrar los trazos.
+
+### Integración de los botones
+
+El otro grupo nos compartió sus archivos `BotonGrupo1.h` y `BotonGrupo1.cpp`, que incorporamos a nuestro código.
+
+Utilizamos dos botones:
+
+**TRAZO (GP14):** permite cambiar entre MOVER y DIBUJAR con una pulsación, sin necesidad de mantenerlo apretado.
+
+**BORRAR (GP15):** permite limpiar el dibujo y volver al estado MOVER.
+
+La clase también incluye un filtro de rebote de 50 milisegundos para evitar que una misma pulsación se registre varias veces.
+
+### Ajustes de las perillas
+
+Seguimos utilizando nuestra clase `Perilla` para controlar los ejes X e Y.
+
+Mantuvimos el promedio de cuatro lecturas para que los valores fueran más estables y la fórmula de conversión que corregimos en las versiones anteriores.
+
+Las perillas están conectadas a GP26 y GP27.
+
+### Cambios en la pantalla
+
+También organizamos la pantalla OLED de 128 × 64 píxeles.
+
+Reservamos las primeras 8 filas para mostrar si estamos en MOVER o DIBUJAR, dejando el resto disponible para crear los trazos.
+
+Además, incorporamos un cursor con forma de cruz para identificar mejor su posición.
+
+### Cómo conservamos los dibujos
+
+Para que el cursor pudiera moverse sin dejar marcas, utilizamos dos espacios de memoria.
+
+Uno guarda los trazos que vamos haciendo y el otro prepara la imagen que aparece en pantalla, incluyendo el cursor y el estado actual.
+
+Así podemos desplazarnos sin modificar el dibujo que ya tenemos.
+
+También incorporamos una función que conecta las posiciones del cursor para formar líneas continuas cuando estamos en DIBUJAR.
+
+### Organización del programa
+
+Los botones se revisan en cada vuelta del programa y las perillas cada 20 milisegundos.
+
+La pantalla se actualiza cuando hay algún cambio que mostrar.
+
+Además, utilizamos el monitor serial para revisar los valores de las perillas, las coordenadas y el estado del dibujo durante las pruebas.
+
+## 14. Archivos y simulación
+
+Para mantener el proyecto ordenado, trabajamos con diferentes archivos:
+
+- `main.cpp`: reúne el funcionamiento principal.
+- `Perilla.h` y `Perilla.cpp`: contienen nuestra clase para los potenciómetros.
+- `BotonGrupo1.h` y `BotonGrupo1.cpp`: contienen la clase que nos compartió el otro grupo.
+- `ssd1306.h`, `ssd1306.c` y `font.h`: permiten trabajar con la pantalla.
+- `diagram.json`: contiene el circuito de Wokwi.
+- `CMakeLists.txt`: contiene la configuración de compilación.
+
+**Código 5 en Wokwi:**
+Subido código 5.
+
+## 15. KiCad — Pendiente
+
+Con el Código 5 integrado, la parte que nos queda por desarrollar es el esquemático del circuito en KiCad.
+
+Para esto vamos a tomar como referencia las conexiones que ya tenemos definidas en Wokwi.
+
+Necesitamos representar la Raspberry Pi Pico, las dos perillas, la pantalla OLED, los botones y sus resistencias, revisando que cada componente esté conectado al pin correspondiente.
+
+Por ahora tenemos el código integrado y las conexiones organizadas en Wokwi. Nos falta trasladarlas al esquemático de KiCad.
+
+## 16. Bibliografía
 
 **Computer History Museum (2010).** *MacPaint and QuickDraw Source Code.*
 <https://computerhistory.org/blog/macpaint-and-quickdraw-source-code/>
@@ -377,9 +451,7 @@ Todavía estamos trabajando en el desarrollo de TRAZO, por lo que este registro 
 **Raspberry Pi.** *Pico-series Microcontrollers Documentation.*
 <https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html>
 
-## Prompts usados (chatGPT)
-> **Nota:** el chat original se borró. Lo que sigue es una reconstrucción
-> aproximada, hecha de memoria 
+## 17. Prompts usados (chatGPT)
 
 ### Código 1 (25-10-2026): plan en comentarios
 - **Qué pedimos (aprox):** Primero le explicamos qué es la máquina: TRAZO, un proyecto de

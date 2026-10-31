@@ -301,6 +301,8 @@ codigo/
     └── Mensajes.h / Emociones.cpp
     └── Juego.h / Juego.cpp
 ```
+### Wokwi
+https://wokwi.com/projects/479334243939894273
 
 ### Clases escritas por nosotras
 
@@ -442,18 +444,12 @@ Hechas por grupo 04
 - **Se relaciona con:** 
 
 
+
 # Resultados
 fotos, videos
 
 ### Aprendizajes
 conclusiones, reflexiones del proceso
-
-### Reparto del trabajo
-| Integrante | Tareas |
-|------------|--------|
-| Nombre 1 | Código |
-| Nombre 2 | Circuito |
-| Nombre 3 | Interfaz |
 
 ### Bibliografía:
 - kp_mcclard. (s. f.). Vtg KB Learning Toys 90s desktop kids educational toy computer keyboard mouse [Anuncio de venta con fotografías]. eBay. https://www.ebay.es/itm/407262442228

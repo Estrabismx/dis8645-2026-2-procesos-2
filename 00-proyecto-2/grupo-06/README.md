@@ -14,19 +14,17 @@
 - Nacha Zamudio / [nachazamudio](https://github.com/nachazamudio)
 
 
-# Idea de proyecto 
-Juego de nave, la cual hay que mantener volando por el mayor tiempo que pueda sin chocar con obstáculos ni caer al suelo. Tendrá 2 botones y 2 perillas para su uso, el primer botón, al mantenerse presionado durante 2 segundos, prende y apaga el juego, el segundo botón es el que sirve para mantener la nave volando, ya que al presionarlo la nave sube hasta que el botón se suelta y la nave comienza a caer, por lo que se debe intercalar el presionar y soltar para evitar que la nave caiga. Las perillas manejan dos aspectos distintos, la perilla derecha es una selección de diferentes naves para que el usuario escoja, son cuatro naves: 1-calabaza, 2-chango, 3-gato alien y 4-vaca . La perilla izquierda  regula la velocidad de juego, pudiendo subir o bajar la dificultad para ajustarla a sus capacidades. 
+# Space Float 
+Space Float es un juego de nave, la cual hay que mantener volando por el mayor tiempo que pueda sin chocar con obstáculos ni caer al suelo. Tendrá 2 botones y 2 perillas para su uso, el primer botón es seleccionador, al mantenerse presionado durante 2 segundos, prende y apaga el juego, el segundo botón volador es el que sirve para mantener la nave volando, ya que al presionarlo la nave sube hasta que el botón se suelta y la nave comienza a caer, por lo que se debe intercalar el presionar y soltar para evitar que la nave caiga. Las perillas manejan dos aspectos distintos, la perilla derecha es una selección de diferentes naves para que el usuario escoja, son cuatro naves: 1-calabaza, 2-chango, 3-gato alien y 4-vaca . La perilla izquierda  regula la velocidad de juego, pudiendo subir o bajar la dificultad para ajustarla a sus capacidades. 
 
-Botón 1: servirá para encender y apagar la pantalla (tendrás que mantenerlo presionado por 2 segundos) y además funciona como botón seleccionador (apretandolo una vez)
-
-Botón 2: si lo mantienes presionado el personaje sube y si lo sueltas cae (eje y)
-
-Perilla derecha: funcionará para cambiar la selección de personajes. 
-
-Perilla izquierda: funcionará para controlar la velocidad con la que avanza el mapa (eje x) 
-
-Si el jugador choca o se cae, el juego se reinicia. 
-
+| Control | Acción |
+|---|---|
+| **Botón 1 (seleccionador)**, mantenido 2 segundos | Enciende o apaga la pantalla |
+| **Botón 1 (seleccionador)**, una pulsación | Confirma la nave elegida y comienza la partida |
+| **Botón 2 (volador)**, mantenido | La nave sube (eje Y) |
+| **Botón 2 (volador)**, soltado | La nave cae (eje Y) |
+| **Perilla izquierda** | Aumenta o disminuye la velocidad del mapa (eje X) |
+| **Perilla derecha** | Cambia la nave seleccionada en el menú |
 
 Esta idea de proyecto esta totalmente inspirado en el juego Flappy Bird 
 ![inspiración](./imagenes/foto-bird.jpeg)
@@ -111,16 +109,364 @@ a mi personalmente me gustan los mouse con formas raras, hubiese amado tener uno
 //Un número entero que almacena la posición física limpia de la perilla tras procesar la señal del convertidor 
 
  ```
-por terminaar 
+
 # Materiales 
 | Componentes | Cantidad | Precio unitario | Link |
 | --- | --- | --- | --- |
 | Raspberry Pi Pico 2W | 1 | $14.990 | <https://raspberrypi.cl/products/raspberry-pi-pico-2-w-con-headers> |
-| Pantalla OLED 128×64 I2C  | 1 | $4.275| <> |
-|xxxx | xx | xxx| xxx |
-|xxx |xxx | xxx | xx|
+| Pantalla OLED 128×64 I2C  | 1 | $4.275| <https://afel.cl/products/pantalla-lcd-oled-azul-y-amarillo-0-96?pr_prod_strat=similar&pr_rec_id=22da38dac&pr_rec_pid=8381957570712&pr_ref_pid=8381902258328&pr_seq=uniform> |
+|Botón Táctil Tapa 12x12x7.3 - Interruptor| 2 | $100| <https://afel.cl/products/boton-tactil-tapa-12x12x7-3-interruptor?_pos=2&_sid=c1a18aabb&_ss=r>  |
+|Potenciómetro precision de rotación ajustable 270° | 2 |$350 | <https://zamper.cl/cl/products/potenciometro-precision-de-rotacion-ajustable-270-1855?srsltid=AYCX9vJ52P0V7IY7rqd_A2PkXN33k9fyvnsHMGatWmAEVxbguBIJ7VkvvuQ>|
+
+ 
+Avances proyecto: [avances](./codigos)
 
 
-# Mapa de flujo del usuario 
-# Mapa de flujo botones 
-# Mapa de flujo perillas 
+
+# Mapa de flujo
+# [Space Float]
+
+
+Juego de nave inspirado en *Flappy Bird*, programado para una **Raspberry Pi Pico** y mostrado en una pantalla OLED de 0,96". El objetivo es mantener la nave volando el mayor tiempo posible, esquivando obstáculos.
+
+
+---
+
+
+## Descripción
+
+
+Una nave avanza por un mapa que se desplaza de forma infinita. La persona que juega debe controlar la altura de la nave intercalando entre presionar y soltar un botón: al presionarlo la nave sube, y al soltarlo comienza a caer. Si la nave choca con un obstáculo o con el suelo, el juego se reinicia. **No hay victoria**: el juego continúa infinitamente y el desafío es durar lo más posible.
+
+
+El juego cuenta con:
+
+
+- **Selección de nave:** al iniciar, un menú permite elegir 1 de 4 personajes.
+- **Dificultad ajustable:** una perilla regula la velocidad con que avanza el mapa.
+- **Encendido y apagado** de la pantalla desde un botón.
+
+
+---
+
+
+### Conexiones
+
+
+> Completar con los pines definitivos del proyecto.
+
+
+| Componente | Pin de la Pico |
+|---|---|
+| Botón 1 (seleccionador) | `GP__` |
+| Botón 2 (volador) | `GP__` |
+| Perilla izquierda (velocidad) | `GP26 (ADC0)` |
+| Perilla derecha (selección de nave) | `GP27 (ADC1)` |
+| OLED SDA | `GP__` |
+| OLED SCL | `GP__` |
+| OLED VCC / GND | `3V3` / `GND` |
+
+
+---
+
+
+### Paso a paso
+
+
+1. Conecta la Raspberry Pi Pico a la corriente.
+2. Mantén presionado el **botón 1** durante 2 segundos para encender la pantalla.
+3. Gira la **perilla derecha** para ver las 4 naves disponibles.
+4. Presiona **una vez el botón 1** para elegir tu nave.
+5. Ajusta la dificultad con la **perilla izquierda**.
+6. Presiona y suelta el **botón 2** de forma alternada para mantener la nave en el aire y esquivar obstáculos.
+7. Si chocas, el juego se reinicia y vuelves al menú de selección.
+
+
+---## Diagramas de flujo
+
+
+<details>
+<summary><b>Mapa de flujo: experiencia de usuario</b></summary>
+
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Arial','lineColor':'#2E7D32','primaryTextColor':'#0B3C5D'}}}%%
+flowchart TD
+    A([Inicio<br/>pantalla apagada]) --> B{"¿Mantiene el botón 1<br/>por 2 segundos?"}
+    B -- No --> A
+    B -- Sí --> C["La pantalla se enciende<br/>y ve el menú de naves"]
+
+
+    C --> D["Gira la perilla derecha<br/>para ver las 4 naves"]
+    D --> E{"¿Presiona el botón 1<br/>una vez?"}
+    E -- No --> D
+    E -- Sí --> F["Selecciona la nave<br/>y empieza la partida"]
+
+
+    F --> G["Ve avanzar el mapa<br/>con obstáculos"]
+    G --> H["Gira la perilla izquierda<br/>si quiere más o menos velocidad"]
+    H --> I["Mantiene presionado el botón 2<br/>para subir o lo suelta para caer"]
+    I --> J{"¿La nave choca con<br/>un obstáculo o el suelo?"}
+
+
+    J -- No --> G
+    J -- Sí --> K["Pierde: el juego se reinicia<br/>y vuelve al menú de naves"]
+    K --> C
+
+
+    C --> L{"¿Mantiene el botón 1<br/>por 2 segundos?"}
+    L -- Sí --> M(["Se apaga la pantalla"])
+    M --> A
+    L -- No --> D
+
+
+    classDef inicio fill:#0B3C5D,stroke:#2E7D32,stroke-width:2px,color:#FFF9DB;
+    classDef decision fill:#FFD60A,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef accion fill:#C8E6C9,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef menu fill:#BFE3F5,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+
+
+    class A,M inicio;
+    class B,E,J,L decision;
+    class D,F,G,H,I accion;
+    class C,K menu;
+
+
+    linkStyle default stroke:#2E7D32,stroke-width:2px;
+```
+
+
+</details>
+
+
+<details>
+<summary><b>Mapa de flujo: máquina</b></summary>
+
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Arial','lineColor':'#2E7D32','primaryTextColor':'#0B3C5D'}}}%%
+flowchart TD
+    A([Alimentación del sistema]) --> B["Inicializar pantalla OLED,<br/>botones y perillas<br/>estado = APAGADO"]
+    B --> C{"¿Botón 1 mantenido<br/>por 2 segundos?"}
+    C -- No --> C
+    C -- Sí --> D["Encender pantalla<br/>estado = MENÚ"]
+
+
+    D --> E["Leer perilla derecha<br/>Asignar nave 1 de 4 según el rango"]
+    E --> F["Mostrar nave elegida<br/>en el menú"]
+    F --> G{"¿Botón 1 con<br/>una pulsación?"}
+    G -- No --> E
+    G -- Sí --> H["Confirmar nave<br/>estado = JUEGO<br/>Posición inicial de la nave"]
+
+
+    H --> I["Leer perilla izquierda<br/>Ajustar velocidad del mapa"]
+    I --> J["Desplazar mapa y obstáculos<br/>en el eje X"]
+    J --> K{"¿Botón 2<br/>presionado?"}
+    K -- Sí --> L["Subir nave<br/>eje Y"]
+    K -- No --> M["Bajar nave por gravedad<br/>eje Y"]
+    L --> N
+    M --> N["Dibujar nave y mapa<br/>en la pantalla"]
+
+
+    N --> O{"¿La nave tocó un obstáculo,<br/>el suelo o el techo?"}
+    O -- No --> I
+    O -- Sí --> P["Registrar derrota<br/>Reiniciar partida"]
+    P --> D
+
+
+    D --> Q{"¿Botón 1 mantenido<br/>por 2 segundos?"}
+    Q -- Sí --> R["Apagar pantalla<br/>estado = APAGADO"]
+    R --> C
+    Q -- No --> E
+
+
+    classDef inicio fill:#0B3C5D,stroke:#2E7D32,stroke-width:2px,color:#FFF9DB;
+    classDef decision fill:#FFD60A,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef proceso fill:#C8E6C9,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef menu fill:#BFE3F5,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+
+
+    class A inicio;
+    class C,G,K,O,Q decision;
+    class B,E,F,H,I,J,L,M,N proceso;
+    class D,P,R menu;
+
+
+    linkStyle default stroke:#2E7D32,stroke-width:2px;
+```
+
+
+</details>
+
+
+<details>
+<summary><b>Diagrama de flujo: botones</b></summary>
+
+
+**Botón 1 (seleccionador):** pulsación corta selecciona, pulsación larga (2 segundos) enciende o apaga.
+
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Arial','lineColor':'#2E7D32','primaryTextColor':'#0B3C5D'}}}%%
+flowchart TD
+    A([Ciclo principal llama a update]) --> B{"¿La persona está<br/>presionando el botón?"}
+
+
+    B -- Sí --> C{"¿Ya estaba presionado<br/>en el ciclo anterior?"}
+    C -- No --> D["Anota la hora de inicio<br/>Estado: estaSiendoPresionado"]
+    C -- Sí --> E{"¿Pasaron 2 segundos<br/>desde el inicio?"}
+    E -- No --> F["Sigue esperando<br/>Estado: estaSiendoPresionado"]
+    E -- Sí --> G["Avisa: PULSACIÓN LARGA<br/>Significa: ENCENDER o APAGAR"]
+    G --> H["Marca la pulsación como usada<br/>para no repetir el aviso"]
+
+
+    B -- No --> I{"¿Estaba presionado<br/>en el ciclo anterior?"}
+    I -- Sí --> J{"¿La pulsación ya fue<br/>usada como larga?"}
+    J -- No --> K["Avisa: PULSACIÓN CORTA<br/>Significa: SELECCIONAR nave"]
+    J -- Sí --> L["No avisa nada más"]
+    K --> M["Estado: noPresionado"]
+    L --> M
+    I -- No --> M
+
+
+    D --> A
+    F --> A
+    H --> A
+    M --> A
+
+
+    classDef inicio fill:#0B3C5D,stroke:#2E7D32,stroke-width:2px,color:#FFF9DB;
+    classDef decision fill:#FFD60A,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef proceso fill:#C8E6C9,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef aviso fill:#BFE3F5,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+
+
+    class A inicio;
+    class B,C,E,I,J decision;
+    class D,F,H,L,M proceso;
+    class G,K aviso;
+
+
+    linkStyle default stroke:#2E7D32,stroke-width:2px;
+```
+
+
+**Botón 2 (volador):** mientras se mantiene presionado la nave sube; al soltarlo, cae.
+
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Arial','lineColor':'#2E7D32','primaryTextColor':'#0B3C5D'}}}%%
+flowchart TD
+    A([Ciclo principal llama a update]) --> B{"¿La persona está<br/>presionando el botón?"}
+
+
+    B -- Sí --> C["Estado: estaSiendoPresionado"]
+    C --> D(["La nave SUBE<br/>mientras siga presionado"])
+
+
+    B -- No --> E{"¿Estaba presionado<br/>en el ciclo anterior?"}
+    E -- Sí --> F["Estado: soltado"]
+    F --> G["Estado: noPresionado"]
+    E -- No --> G
+    G --> H(["La nave CAE<br/>por gravedad"])
+
+
+    D --> A
+    H --> A
+
+
+    classDef inicio fill:#0B3C5D,stroke:#2E7D32,stroke-width:2px,color:#FFF9DB;
+    classDef decision fill:#FFD60A,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef proceso fill:#C8E6C9,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef aviso fill:#BFE3F5,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+
+
+    class A inicio;
+    class B,E decision;
+    class C,F,G proceso;
+    class D,H aviso;
+
+
+    linkStyle default stroke:#2E7D32,stroke-width:2px;
+```
+
+
+</details>
+
+
+<details>
+<summary><b>Diagrama de flujo: perillas</b></summary>
+
+
+**Perilla izquierda (velocidad del mapa):**
+
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Arial','lineColor':'#2E7D32','primaryTextColor':'#0B3C5D'}}}%%
+flowchart TD
+    A([Ciclo principal llama a update]) --> B["Leer valor analógico<br/>de la perilla<br/>0 a 65535"]
+    B --> C["Convertir el valor<br/>a velocidad del mapa<br/>mínima a máxima"]
+    C --> D{"¿La velocidad cambió<br/>respecto al ciclo anterior?"}
+    D -- Sí --> E(["Avisa: nueva velocidad<br/>El mapa avanza más rápido o más lento"])
+    D -- No --> F(["No avisa nada nuevo"])
+    E --> A
+    F --> A
+
+
+    classDef inicio fill:#0B3C5D,stroke:#2E7D32,stroke-width:2px,color:#FFF9DB;
+    classDef decision fill:#FFD60A,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef proceso fill:#C8E6C9,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef aviso fill:#BFE3F5,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+
+
+    class A inicio;
+    class D decision;
+    class B,C proceso;
+    class E,F aviso;
+
+
+    linkStyle default stroke:#2E7D32,stroke-width:2px;
+```
+
+
+**Perilla derecha (selección de nave):**
+
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'fontFamily':'Arial','lineColor':'#2E7D32','primaryTextColor':'#0B3C5D'}}}%%
+flowchart TD
+    A([Ciclo principal llama a update]) --> B["Leer valor analógico<br/>de la perilla<br/>0 a 65535"]
+    B --> C["Dividir el recorrido<br/>en 4 rangos iguales"]
+    C --> D{"¿En qué rango<br/>está la perilla?"}
+    D -- Rango 1 --> E1["Nave 1"]
+    D -- Rango 2 --> E2["Nave 2"]
+    D -- Rango 3 --> E3["Nave 3"]
+    D -- Rango 4 --> E4["Nave 4"]
+    E1 --> F{"¿Cambió la nave<br/>respecto al ciclo anterior?"}
+    E2 --> F
+    E3 --> F
+    E4 --> F
+    F -- Sí --> G(["Avisa: nueva nave<br/>Se actualiza el menú"])
+    F -- No --> H(["No avisa nada nuevo"])
+    G --> A
+    H --> A
+
+
+    classDef inicio fill:#0B3C5D,stroke:#2E7D32,stroke-width:2px,color:#FFF9DB;
+    classDef decision fill:#FFD60A,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef proceso fill:#C8E6C9,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+    classDef aviso fill:#BFE3F5,stroke:#0B3C5D,stroke-width:2px,color:#0B3C5D;
+
+
+    class A inicio;
+    class D,F decision;
+    class B,C,E1,E2,E3,E4 proceso;
+    class G,H aviso;
+
+
+    linkStyle default stroke:#2E7D32,stroke-width:2px;
+```
+
+
+</details>
+

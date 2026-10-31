@@ -34,8 +34,6 @@ Era del CD-ROM y 32 bits (Mediados de los 90): Con la llegada de soportes como l
 
 Era moderna y el sonido interactivo (Siglo XXI - Presente): La música y los efectos dejaron de ser simples archivos lineales para volverse adaptativos y dinámicos, reaccionando en tiempo real a las acciones del jugador, la exploración o el combate. Además, géneros como el jazz, la música electrónica y fusiones culturales pasaron a ser sellos distintivos en sagas como Persona o Sonic the Hedgehog
 
-<br>
-
 
 ## Inspiración
 
@@ -43,7 +41,26 @@ Sharp X68000
 
 El proyecto consiste en un dispositivo sonoro inspirado en las configuraciones y el sistema del computador Sharp X68000. La interacción se realizará mediante dos botones y dos perillas, cada uno con una función específica para seleccionar, reproducir y controlar los sonidos.
 
+Otro aspecto interesante reside en las opciones de personalización. Sharp X68000 se puede ampliar gracias a sus puertos, permitiendo añadir cosas como un sintetizador MIDI Roland MT32 para mejorar las melodías del chip Yamaha YM2151 que trae de serie
+
+la Sharp X68000 lideró el mercado de los sistemas informáticos japoneses, finalizando su reinado alrededor de 1996. Gracias al chip de sonido Yamaha YM2151, la computadora pudo reproducir algunas de las mejores bandas sonoras de videojuegos (VGM) basadas en síntesis FM jamás lanzadas. 
+
+https://www.youtube.com/channel/UC202eItEazdvnMRK09RTtaw
+https://xvgmradio.com/episode-119-the-sounds-of-the-sharp-x68000/
+
 <br>
+
+## ¿por qué 5 sonidos? 
+
+- Un tono simple.
+- Una secuencia rítmica.
+- Una melodía sintetizada.
+- Un sonido percusivo.
+- Una muestra de audio digital.
+
+La elección de cinco sonidos responde a la intención de representar distintas transformaciones tecnológicas en la historia del audio de los videojuegos. Cada sonido corresponde a una etapa que permite reconocer cómo evolucionaron la generación, síntesis y reproducción del sonido, desde los primeros tonos electrónicos hasta el audio digital. 
+
+
 
 ## Controles e interacciones
 
