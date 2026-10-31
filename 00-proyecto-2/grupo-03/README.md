@@ -299,6 +299,16 @@ flowchart TD
    class C,F,I decision
 
 ```
+## Experiencia de uso
+Encender el dispositivo: la persona presiona el botón de encendido para iniciar la máquina y activar la pantalla.
+
+1. Seleccionar un modo: gira la perilla de navegación para recorrer los tres modos disponibles: Expresiones, Mensajes y Minijuego. 
+2. Explorar las emociones (Modo 01): gira la perilla de emociones para seleccionar una de las cuatro expresiones disponibles. El rostro de la pantalla cambia según la emoción seleccionada. 
+3. Explorar los mensajes (Modo 02): gira la perilla de navegación hasta el segundo modo. La pantalla muestra mensajes asociados a la emoción seleccionada anteriormente. 
+4. Iniciar el minijuego (Modo 03): gira la perilla de navegación hasta el tercer modo. La pantalla presenta el juego y se enciende una luz LED que indica que el botón de salto está habilitado. 
+5. Interactuar con el minijuego: presiona el botón de salto para que el personaje esquive los obstáculos. La dificultad del juego varía dependiendo de la emoción seleccionada en el Modo 01. 
+6. Cambiar de modo: gira nuevamente la perilla de navegación para acceder a cualquiera de los tres modos. La máquina conserva la última emoción seleccionada para utilizarla en los mensajes y el minijuego. 
+7. Apagar el dispositivo: presiona nuevamente el botón de encendido para desactivar la pantalla y finalizar la interacción. 
 
 ## Estructura del código
 
