@@ -31,7 +31,7 @@ Elegimos como principal referente un Digital Desktop PC de la marca KB Learning 
 
   
 <details>
-<summary> ¿Cómo funciona? </summary>
+<summary> Funcionamiento Digital Desktop PC </summary>
  
 Este computador en su interior se define el funcionamiento a través de tres sistemas: 
 
