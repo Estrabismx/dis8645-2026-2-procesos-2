@@ -28,7 +28,25 @@ Por lo que entiendo, tenemos que realizar esto:
 
 ---
 
-El proyecto consiste en una rocola interactiva, la cual consta de música controlada por voz, desarrollada mediante un sistema que utiliza una Raspberry Pi Pico 2 W y programada en C++. De forma física, se mantendrá la estética de una caja retro-rocola que se mantiene en un estado de reposo hasta que un sensor ultrasónico detecta la aproximación de un usuario a menos de 50 cm. Al activarse, este sistema opera enteramente mediante una interfaz de usuario por voz. Un módulo de hardware DFPlayer Mini asume el rol de locutor, reproduciendo instrucciones pregrabadas desde una tarjeta MicroSD y emitiendo los fragmentos de las canciones correspondientes a cada uno de los tres niveles del reto. El usuario interactúa respondiendo en voz alta, momento en el cual un módulo de reconocimiento de voz capta la respuesta para que el microcontrolador la valide. Dependiendo del resultado, el sistema emite una retroalimentación auditiva indicando si acertó o falló, y si el jugador logra superar los tres niveles consecutivos utilizando únicamente comandos vocales, la máquina de estados finitos que gestiona el código envía una señal PWM a un servomotor oculto que libera una compuerta mecánica para entregar un premio de forma física.
+Este proyecto es un juego interactivo físico inspirado en la forma y el estilo de una rocola clásica.
+
+La idea es crear una máquina entretenida que ponga a prueba qué tanto saben de música los jugadores, combinando sonidos, luces y botones compacto y junto además fácil de usar.}
+
+​**Cómo se juega**
+
+La dinámica del juego es muy sencilla y rápida:
+
+​1. Escucha: Al empezar la partida, la máquina reproduce al azar un pedazo de una canción.
+
+​2. Elige: Al mismo tiempo, muestra tres posibles respuestas (Opciones A, B o C) para que el jugador identifique cuál es la canción que está sonando.
+
+​3. Presiona: Para responder, la persona debe apretar uno de los tres botones físicos (A, B o C) instalados en el frente de la máquina.
+
+​El juego tiene 3 niveles seguidos. Para ganar la partida completa, el jugador tiene que adivinar correctamente las tres canciones.
+
+​**El premio**
+
+Para hacer el juego más emocionante, la rocola tiene un espacio interno donde guarda dulces. Si el jugador logra pasar los 3 niveles y adivina todas las canciones, la máquina activa un mecanismo interno que libera un dulce hacia una pequeña bandeja exterior, entregándole una recompensa real por haber ganado.
 
 ---
 
