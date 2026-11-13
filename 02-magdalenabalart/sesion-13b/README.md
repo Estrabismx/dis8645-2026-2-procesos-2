@@ -65,7 +65,7 @@ El proyecto nace del interés por comprender el sonido como una huella de la exi
 
 Cada animal posee una identidad sonora particular, pero es en la convivencia de estas voces donde se construye un paisaje acústico más amplio.
 
-A través de la interacción, buscamos hacer visible —desde la escucha— la importancia de cada una de estas presencias. Al activar diferentes especies, el paisaje se enriquece; al silenciarlas, su composición cambia y aparecen nuevas ausencias.
+A través de la interacción, buscamos hacer visible la importancia de cada una de estas presencias. Al activar diferentes especies, el paisaje se enriquece; al silenciarlas, su composición cambia y aparecen nuevas ausencias.
 
 **La propuesta invita a reflexionar sobre aquello que podríamos dejar de escuchar y sobre la importancia de preservar las voces que forman parte de nuestro patrimonio natural.**
 
