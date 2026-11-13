@@ -1,6 +1,8 @@
 # sesion-13b
 
 ## apuntes sesión
+
+
 Brainstorming
 que sí queremos 
 tinder de sonido
@@ -37,6 +39,7 @@ Texto descriptivo
 La propuesta consiste en dos objetos individuales, cada uno con un micrófono, que permiten la interacción entre dos personas. Cada una puede grabar o capturar un sonido propio, ya sean palabras, voces o sonidos realizados con el cuerpo. Luego, pueden experimentar modificando la velocidad de sus sonidos, reproduciéndolos de forma rápida, normal o lenta.
 Una vez que ambas personas hayan experimentado con sus sonidos, estos se fusionan dentro de la máquina, generando una nueva composición sonora que se transforma visualmente mediante figuras de Lissajous. Estas formas cambian dependiendo de las frecuencias y de la relación entre ambos sonidos, creando una figura única que representa el encuentro de las dos personas.
 La idea es que cada persona aporte un sonido distinto y que, al juntarse, se genere algo nuevo que ninguna podría producir por separado. Todo sucede en tiempo real, sin almacenar los sonidos, convirtiendo la interacción en una experiencia física, visual y sonora.
+Lo que puede hacer nuestro proyecto es medir las frecuencias y jugar con los tiempos, por ejemplo que las figuras de Lissajous duren más en el tiempo. Tener claro cuales son los parámetros específicamente, los valores lo podemos cambiar rápido pero los parámetros no, esto para lo de diseño abierto.
 Bom
 # BOM 
 
