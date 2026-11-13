@@ -32,12 +32,14 @@ Este proyecto es un juego interactivo físico inspirado en la forma y el estilo 
 
 La idea es crear una máquina entretenida que ponga a prueba qué tanto saben de música los jugadores, combinando sonidos, luces y botones compacto y junto además fácil de usar.}
 
-​**¿Cómo se juega?**
+​** ¿Cómo se juega? **
 
 La dinámica del juego es muy sencilla y rápida:
 
 ​1. Escucha: Al empezar la partida, la máquina reproduce al azar un pedazo de una canción.
+
 ​2. Elige: Al mismo tiempo, muestra tres posibles respuestas (Opciones A, B o C) para que el jugador identifique cuál es la canción que está sonando.
+
 ​3. Presiona: Para responder, la persona debe apretar uno de los tres botones físicos (A, B o C) instalados en el frente de la máquina.
 
 ​El juego tiene 3 niveles seguidos. Para ganar la partida completa, el jugador tiene que adivinar correctamente las tres canciones.
