@@ -32,7 +32,7 @@ Este proyecto es un juego interactivo físico inspirado en la forma y el estilo 
 
 La idea es crear una máquina entretenida que ponga a prueba qué tanto saben de música los jugadores, combinando sonidos, luces y botones compacto y junto además fácil de usar.}
 
-​** ¿Cómo se juega? **
+​**Cómo se juega**
 
 La dinámica del juego es muy sencilla y rápida:
 
