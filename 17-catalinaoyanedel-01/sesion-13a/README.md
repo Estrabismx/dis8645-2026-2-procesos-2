@@ -17,6 +17,33 @@ hasta el momento, tenemos estos posibles sonidos:
 - expresiones culturales: música, celebraciones, instrumentos y encuentros comunitarios, con autorización de sus participantes.
 - memorias: sonidos del hogar, cocina, juegos, relatos y recuerdos personales.
 
+--------------
+
+para desarrollar el proyecto, profundizamos en las posibles ideas de todos estos sonidos, y llegamos a la que es de nuestro mayor interés y que tiene más peso conceptual: concentrarnos solo en los sonidos de biodiversidad de nuestro territorio, específicamente en las que se encuentra amenazadas y cómo le podemos dar visibilidad a su sonido, existencia, y como consecuencia apelando a su cuidado, ya que no se puede cuidar lo que no se conoce.
+
+### Ecos en extinción
+"La máquina permitirá escuchar, activar, silenciar y superponer los sonidos de diferentes animales mediante controles físicos, generando composiciones sonoras que surgen de la interacción entre sus distintas voces.
+
+Cada especie tendrá un canal independiente, permitiendo modificar su volumen y combinarla con otras grabaciones sin perder las características originales de su sonido.
+
+De esta manera, el instrumento funciona tanto como un pequeño archivo de biodiversidad sonora como una herramienta de exploración y composición colectiva."
+
+### funcionamiento
+- el instrumento permite construir un paisaje sonoro de manera progresiva.
+- la experiencia puede comenzar desde el silencio, incorporando una especie a la vez hasta formar una composición colectiva.
+- a medida que se activan nuevas grabaciones, aparecen diferentes ritmos, intensidades y relaciones entre sonidos.
+- del mismo modo, al silenciar una especie, el paisaje se transforma. su ausencia modifica la composición, permitiendo reconocer la importancia de cada voz dentro del conjunto.
+- esta interacción busca que la persona no sea únicamente una oyente, sino que participe activamente en la construcción y transformación del paisaje sonoro.
+
+### referentes
+![referente 1](./imagenes/referente1.png)
+
+este sintetizador nos llamó la atención por la distribución de sus controles y la posibilidad de activar y modificar distintos efectos de manera independiente. también nos interesa cómo organiza varios controles en un espacio reducido, manteniendo una relación clara entre cada elemento y su función.
+
+![referente 2](./imagenes/referente2.png)
+
+nos interesa la simplicidad de su interacción y el protagonismo de la perilla central, que permite modificar el sonido mediante un movimiento continuo y como esta contiene todos los sonidos. además, nos interesa cómo la gráfica acompaña los controles, utilizando líneas y elementos visuales que ayudan a relacionar el movimiento físico con la modificación del sonido.
+
 
 ## encargos
 
