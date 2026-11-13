@@ -44,6 +44,16 @@ este sintetizador nos llamó la atención por la distribución de sus controles 
 
 nos interesa la simplicidad de su interacción y el protagonismo de la perilla central, que permite modificar el sonido mediante un movimiento continuo y como esta contiene todos los sonidos. además, nos interesa cómo la gráfica acompaña los controles, utilizando líneas y elementos visuales que ayudan a relacionar el movimiento físico con la modificación del sonido.
 
+### bill of materials (BOM)
+
+hasta el momento: 
+
+- boton pulsador
+- 8 potenciometros
+- raspberry pi pico 2w
+
+
+La experiencia de usuario busca que quien ocupe la maquina, la prenda con el botón, que se refuerce esto a través de un sonido para confirmar que la máquina está prendida. Para crear su propio sonido sonoro existen cinco categorías (aves, mamíferos, reptiles, anfibios e insectos, donde habrán especies por cada una, POR TERMINAR DE DEFINIRSE
 
 ## encargos
 
