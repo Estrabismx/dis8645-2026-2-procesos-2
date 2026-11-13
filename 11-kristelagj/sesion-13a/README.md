@@ -91,7 +91,7 @@ inicio → ¿tarjeta acercada? —no→ esperar
 
 ## encargos
 
-# **texto descriptivo del proyecto**
+### **texto descriptivo del proyecto**
 
 Nuestro proyecto n°3 se basará en crear un juego donde el jugador debe interactuar con el sistema mediante botones pulsadores y utilizar el sonido como principal medio de comunicación para comprender lo que sucede durante la partida.
 
