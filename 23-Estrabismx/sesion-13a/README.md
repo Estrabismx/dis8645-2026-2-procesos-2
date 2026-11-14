@@ -14,6 +14,8 @@
 
 ![diagrama](./imagenes/dis8645-2026-2.png)
 
+### seudocódigo
+
 Previa:
 
 tenemos 3 conceptos
@@ -34,12 +36,12 @@ c. conjuntoDeAudio: una vez que se proceso el `sonido` y se guardan los cambios,
 
 1. Se inicia la máquina con el interruptor
 
+```cpp
+
 bool interruptorEncendido; // valor asociado a la lectura del switch o botón 
 bool funcionamientoMaquina; // depende del interruptorEncendido
 // si es true la maquina realiza sus funciones con normalidad
 // si es false, la maquina debe tener un led encendido que indica que recibe corriente
-
-```cpp
 
 if (interruptorEncendido){
 funcionamientoMaquina = 1;}
@@ -48,6 +50,7 @@ funcionamientoMaquina = 1;}
 
 2. Se consulta si hay "conjuntoDeAudios" 
 
+3. 
 
 ## encargos
 
